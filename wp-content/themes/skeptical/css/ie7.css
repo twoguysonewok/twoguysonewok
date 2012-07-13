@@ -1,0 +1,18 @@
+.nav li a {_height: 0;zoom: 1;} /* IE7 Fix */
+.button, .button:visited {  padding:7px 6px; margin:0; }
+#tabs ul.wooTabs  { zoom: 1; }
+.widget ul li { padding-left: 0!important; }
+.commentlist li .comment-container  { zoom:1; }
+.comment-content, .avatar  { overflow: hidden; }
+#comments .comment .comment-container .comment-content  { width: 550px; }
+#comments .comment.depth-2 .comment-content  { width: 525px; }
+#comments .comment.depth-3 .comment-content  { width: 500px; }
+#comments .comment.depth-4 .comment-content  { width: 475px; }
+#comments .comment.depth-5 .comment-content  { width: 425px; }
+#comments .comment.depth-6 .comment-content  { width: 400px; }
+#comments .comment.depth-7 .comment-content  { width: 375px; }
+#comments #respond  { float: none; }
+#header  { z-index: 9999; }
+#navigation  { z-index: 9999; width: inherit; }
+#navigation .nav, #navigation .rss  { float: left; }
+.post{zoom:1;}

@@ -1,0 +1,32 @@
+*** Skeptical Changelog ***
+
+2012.01.23 - version 1.0.4
+ * includes/theme-options.php - updated embed field description
+
+2011.12.14 - version 1.0.3
+ * template-blog.php - fixed WP 3.3 bug 
+
+2011.11.01 - version 1.0.2
+ * comments.php - Added localisation for "Your Comment" text string.
+ * header.php - Code standards clean-up and maintenance.
+ * footer.php - Code standards clean-up and maintenance.
+ * search-form.php - Code standards clean-up and maintenance.
+ * archive.php - Code standards clean-up and maintenance. Replaced get_category_rss_link() function call with updated get_category_feed_link() function call. Added post_class() function call.
+ * index.php - Code standards clean-up and maintenance. Added post_class() function call.
+ * single.php - Code standards clean-up and maintenance. Added post_class() function call.
+ * page.php - Code standards clean-up and maintenance. Added post_class() function call.
+ * search.php - Code standards clean-up and maintenance. Added post_class() function call.
+ * template-timeline.php - Code standards clean-up and maintenance. Added post_class() function call. Replaced PHP short tags with full PHP tags.
+ * /includes/theme-actions.php - Code standards clean-up and maintenance.
+ * /includes/theme-js.php - Code standards clean-up and maintenance.
+ * /includes/theme-options.php - Code standards clean-up and maintenance.
+ * /includes/theme-functions.php - Added textdomain to Navigation Menu Theme Location title. Code standards clean-up and maintenance.
+
+2010.10.08 - version 1.0.1
+ * header.php - Alternative feed url was not being printed correctly (line 71)
+ * /functions/ - framework update
+ * includes/theme-options.php - added icons to options panel
+ * css/ie7.css - Fixed navigation float bug
+	
+2010.09.27 - version 1.0
+ * First release!

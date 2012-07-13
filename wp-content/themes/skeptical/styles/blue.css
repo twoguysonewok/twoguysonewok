@@ -1,0 +1,82 @@
+/* BLUE STYLESHEET */
+
+body  { background-color: #e0e4ed; }
+a:link, a:visited  { color: #2d4567; }
+h1, h2, h3, h4, h5, h6, .post .title a:hover  { color: #2d4567; }
+
+#header  { background-color: #3d577a; }
+#navigation ul.rss li a{ background-image:url(blue/ico-rss.png); }
+
+.nav li ul  { background-color: #2d4567; }
+.nav li ul li  { border-top:1px solid #5675a0; border-bottom:1px solid #14263e;}
+.nav a:hover, 
+.nav li.current_page_item a:link, .nav li.current_page_item a:visited, 
+.nav li.current_page_parent a:link, .nav li.current_page_parent a:visited,
+.nav li.current-menu-ancestor a:link, .nav li.current-menu-ancestor a:visited  { background-color: #2d4567; }
+.nav li ul li a:hover,
+.nav li ul li.current_page_item a:link, .nav li ul li.current_page_item a:visited,
+.nav li ul li.current-menu-item a:link, .nav li ul li.current-menu-item a:visited  { background-color: #14263e!important; }
+
+#footer-secondary, #footer  { background-color: #d6d9e7; }
+#footer, #footer a:link, #footer a:visited  { color: #333; }
+
+.post .meta .post-date, .post .meta ul, #footer-secondary h3, #commentform label { background-color: #677c97; }
+.post .meta .post-date .bg, #footer-secondary h3 .bg, #commentform label .bg  { background-image: url(blue/bg-postdate.png); }
+
+.post .meta ul li  { color: #c1d0e3; }
+
+#tabs ul.wooTabs li a.selected, #tabs ul.wooTabs li a:hover { background:#203754; }
+#tabs ul.wooTabs li a, #wp-calendar td { color:#203754; }
+
+#tabs .inside { border-color: #203754; }
+#tabs .inside li, #tabs #tab-tags, #wp-calendar th { background-color:#8ba2c0; }
+#tabs .inside ul, #tabs .inside li { border-color: #597ba7; }
+#tabs .inside li a, #tabs #tab-tags a, #tabs ul.wooTabs li, #tabs ul.wooTabs li a.selected, #tabs ul.wooTabs li a:hover, #wp-calendar th { color:#fff; }
+#tabs .inside li img.avatar, #tabs .inside li img.thumbnail { border-color: #597ba7; background-color: #000; }
+
+a.button, 
+a.comment-reply-link, 
+#commentform #submit,
+.widget input.submit,
+#contact-page ol.forms li.buttons .submit {
+	border: 1px solid #3a506c;
+	border-bottom-color: #3a506c;
+	
+	/*Background*/
+	background: #3a506c; /*Fallback*/
+	background: -webkit-gradient(
+					linear,
+					left top,
+					left bottom,
+					color-stop(.2, #677c97),
+					color-stop(1, #3a506c)
+				);
+	background: -moz-linear-gradient(
+					center top,
+					#677c97 20%,
+					#3a506c 100%
+				);
+}
+
+a.button:hover, 
+a.button.hover, 
+a.button.active,
+a.comment-reply-link:hover, 
+#commentform #submit:hover,
+.widget input.submit:hover,
+#contact-page ol.forms li.buttons .submit:hover {
+	/*Background*/
+	background: #3f5a7e; /*Fallback*/
+	background: -webkit-gradient(
+					linear,
+					left top,
+					left bottom,
+					color-stop(.2, #677c97),
+					color-stop(1, #3f5a7e)
+				);
+	background: -moz-linear-gradient(
+					center top,
+					#677c97 20%,
+					#3f5a7e 100%
+				);
+}
