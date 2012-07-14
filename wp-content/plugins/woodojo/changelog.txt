@@ -1,0 +1,19 @@
+*** WooDojo Changelog ***
+
+2012.05.11 - version 1.1.1
+ * /classes/admin.class.php - Additional security tightening (using a whitelist) on the screen and model loading.
+
+2012.04.24 - version 1.1.0
+ * /classes/settings-api.class.php - Added "timestamp" field type, validation for it as well as logic to run a "check" method to make sure the data is as per expected data. Added optional tabbed section navigation for settings screens.
+ * /bundled/woodojo-social-widgets/assets/css/style.css - Adding styling for Instagram widgets.
+ * /bundled/woodojo-social-widgets/widgets/widget-woodojo-instagram.php - Instagram photo stream widget.
+ * /bundled/woodojo-social-widgets/widgets/widget-woodojo-instagram-profile.php - Instagram profile widget.
+ * /bundled/woodojo-social-widgets/woodojo-social-widgets.php - Register Instagram widgets.
+ * /assets/js/tabs-navigation.js - Added functionality for tabbed section navigation in the Settings API.
+
+2012.04.12 - version 1.0.1
+ * /classes/utils.class.php - Fix for some servers not seeing past the main "bundled" directory into the subdirectories.
+ * /classes/base.class.php - Additional line to cater for Windows servers not seeing the base plugin path correctly.
+
+2012.04.11 - version 1.0.0
+ * First release!
