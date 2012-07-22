@@ -16,7 +16,8 @@ your liking.
 	display: block !important; 
 	margin-left: auto !important; 
 	margin-right: auto !important; 
-	max-width:98%;}
+	max-width:98%;
+	height: auto;}
 
 /* Size captions appropriately */
 .entry .wp-caption { 
@@ -30,4 +31,5 @@ your liking.
 	margin: 0; 
 	padding:4px 0; 
 	background:none; 
-	border:0; }
+	border:0; 
+    height: auto;}
