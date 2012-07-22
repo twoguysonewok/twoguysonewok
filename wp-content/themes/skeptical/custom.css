@@ -10,4 +10,7 @@ style from style.css to this file, and modify it to
 your liking.
 
 */
+/* 3.2 Images */
+/* Center thumbnail images */
+.entry img, img.thumbnail { display: block; margin-left: auto; margin-right: auto }
 
