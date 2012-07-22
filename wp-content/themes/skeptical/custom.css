@@ -15,7 +15,8 @@ your liking.
 .entry img, img.thumbnail { 
 	display: block !important; 
 	margin-left: auto !important; 
-	margin-right: auto !important; }
+	margin-right: auto !important; 
+	max-width:98%;}
 
 /* Size captions appropriately */
 .entry .wp-caption { 
