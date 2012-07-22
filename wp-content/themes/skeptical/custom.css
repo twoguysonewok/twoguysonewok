@@ -26,7 +26,7 @@ your liking.
 	border: solid 1px #e6e6e6; }
 .entry .wp-caption img{
 	max-width:98% !important; 
-	margin: auto; 
+	margin: 0; 
 	padding:4px 0; 
 	background:none; 
 	border:0; }
