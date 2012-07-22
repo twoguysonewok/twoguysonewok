@@ -19,13 +19,14 @@ your liking.
 
 /* Size captions appropriately */
 .entry .wp-caption { 
+	max-width:98% !important;
 	padding: 1px; 
 	text-align:center; 
 	background:#F8F8F8; 
 	border: solid 1px #e6e6e6; }
 .entry .wp-caption img{
 	max-width:98% !important; 
-	margin:0; 
+	margin: auto; 
 	padding:4px 0; 
 	background:none; 
 	border:0; }
