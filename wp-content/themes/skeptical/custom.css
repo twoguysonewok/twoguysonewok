@@ -17,3 +17,15 @@ your liking.
 	margin-left: auto !important; 
 	margin-right: auto !important; }
 
+/* Size captions appropriately */
+.entry .wp-caption { 
+	padding: 1px; 
+	text-align:center; 
+	background:#F8F8F8; 
+	border: solid 1px #e6e6e6; }
+.entry .wp-caption img{
+	max-width:98% !important; 
+	margin:0; 
+	padding:4px 0; 
+	background:none; 
+	border:0; }
