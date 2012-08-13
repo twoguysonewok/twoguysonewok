@@ -1028,7 +1028,7 @@ html>/**/body .highslide-gallery ul img {
     #cboxContent{background:#fff; overflow:hidden; max-width:40%}
         .cboxIframe{background:#fff;}
         #cboxError{padding:50px; border:1px solid #ccc;}
-        #cboxLoadedContent{margin-bottom:28px;}
+        #cboxLoadedContent{margin-bottom:28px; max-width:40%}
         #cboxTitle{position:absolute; bottom:4px; left:0; text-align:center; width:100%; color:#949494;}
         #cboxCurrent{position:absolute; bottom:4px; left:58px; color:#949494;}
         #cboxSlideshow{position:absolute; bottom:4px; right:30px; color:#0092ef;}
