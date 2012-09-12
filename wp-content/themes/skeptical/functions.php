@@ -1,8 +1,5 @@
 <?php
 
-update_option('siteurl','http://www.twoguysandawok.com');
-update_option('home','http://www.twoguysandawok.com');
-
 /*-----------------------------------------------------------------------------------*/
 /* Start WooThemes Functions - Please refrain from editing this section */
 /*-----------------------------------------------------------------------------------*/
