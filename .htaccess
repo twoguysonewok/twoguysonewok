@@ -9,6 +9,6 @@ RewriteRule . /index.php [L]
 </IfModule>
 
 RewriteEngine On
-RewriteCond %{HTTP_HOST} ^www.twoguysonewok.com$
+RewriteCond %{HTTP_HOST} ^www.twoguysonewok.com/$
 RewriteRule (.*) http://www.twoguysandawok.com/$1 [R=301,L]
 # END WordPress
