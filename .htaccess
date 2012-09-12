@@ -1,4 +1,9 @@
 # BEGIN WordPress
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^twoguysonewok.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www.twoguysonewok.com$
+RewriteRule (.*) http://www.twoguysandawok.com/$1 [R=301,L]
+
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteBase /
@@ -8,8 +13,4 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
 </IfModule>
 
-RewriteEngine On
-RewriteCond %{HTTP_HOST} ^twoguysonewok.com$ [OR]
-RewriteCond %{HTTP_HOST} ^www.twoguysonewok.com$
-RewriteRule (.*) http://www.twoguysandawok.com/$1 [R=301,L]
 # END WordPress
