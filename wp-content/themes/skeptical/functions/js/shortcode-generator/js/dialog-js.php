@@ -85,8 +85,8 @@
 
 var framework_url = '<?php echo dirname( __FILE__ ); ?>';
 
-var shortcode_generator_path = '<?php echo $woo_framework_path; ?>';
-var shortcode_generator_url = '<?php echo $woo_framework_url; ?>' + 'js/shortcode-generator/';
+var shortcode_generator_path = '<?php echo esc_url( $woo_framework_path ); ?>';
+var shortcode_generator_url = '<?php echo esc_url( $woo_framework_url ); ?>' + 'js/shortcode-generator/';
 
 var wooDialogHelper = {
 

@@ -1,4 +1,8 @@
 <?php
+// File Security Check
+if ( ! defined( 'ABSPATH' ) ) exit;
+?>
+<?php
 
 /*-------------------------------------------------------------------------------------
 
@@ -108,10 +112,7 @@ if ( ! function_exists( 'woo_option_setup' ) ) {
 /*-----------------------------------------------------------------------------------*/
 if ( ! function_exists( 'woothemes_admin_head' ) ) {
 	function woothemes_admin_head() {
-	    //Setup Custom Navigation Menu
-		if ( function_exists( 'woo_custom_navigation_setup' ) ) {
-			woo_custom_navigation_setup();
-		}
+	    
 	}
 }
 add_action( 'admin_head', 'woothemes_admin_head', 10 );

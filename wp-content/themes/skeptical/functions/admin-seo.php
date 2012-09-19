@@ -1,4 +1,8 @@
 <?php
+// File Security Check
+if ( ! defined( 'ABSPATH' ) ) exit;
+?>
+<?php
 /*-----------------------------------------------------------------------------------*/
 /* SEO - woothemes_seo_page */
 /*-----------------------------------------------------------------------------------*/
@@ -12,9 +16,14 @@ function woothemes_seo_page(){
     //Framework Version in Backend Head
     $woo_framework_version = get_option( 'woo_framework_version' );
 
-    //Version in Backend Head
-    $theme_data = get_theme_data( get_template_directory() . '/style.css' );
-    $local_version = $theme_data['Version'];
+    //Version in Backend Header
+	if ( function_exists( 'wp_get_theme' ) ) {
+		$theme_data = wp_get_theme();
+		$local_version = $theme_data->Version;
+	} else {
+		$theme_data = get_theme_data( get_template_directory() . '/style.css' );
+		$local_version = $theme_data['Version'];
+	}
 
     //GET themes update RSS feed and do magic
 	include_once(ABSPATH . WPINC . '/feed.php' );
@@ -284,6 +293,7 @@ function woothemes_seo_page(){
 		}
 
     ?>
+	<?php do_action( 'wooframework_wooseo_container_inside' ); ?>
     <div id="woo-popup-save" class="woo-save-popup"><div class="woo-save-save">Options Updated</div></div>
     <div id="woo-popup-reset" class="woo-save-popup"><div class="woo-save-reset">Options Reset</div></div>
         <form action="" enctype="multipart/form-data" id="wooform" method="post">
@@ -322,7 +332,7 @@ function woothemes_seo_page(){
                 <ul>
                     <li class="changelog"><a title="Theme Changelog" href="<?php echo $manualurl; ?>#Changelog">View Changelog</a></li>
                     <li class="docs"><a title="Theme Documentation" href="<?php echo $manualurl; ?>">View Themedocs</a></li>
-                    <li class="forum"><a href="http://www.woothemes.com/support-forum" target="_blank">Visit Forum</a></li>
+                    <li class="forum"><a href="http://support.woothemes.com" target="_blank">Visit Forum</a></li>
                     <li class="right"><img style="display:none" src="<?php echo get_template_directory_uri(); ?>/functions/images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="Working..." /><a href="#" id="expand_options">[+]</a> <input type="submit" value="Save All Changes" class="button submit-button" /></li>
                 </ul>
 

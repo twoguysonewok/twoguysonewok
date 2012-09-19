@@ -298,7 +298,7 @@
 		$( '.wooframework-banner' ).each( function ( i ) {
 			if ( $( this ).find( '.close-banner a' ).length ) {
 				$( this ).find( '.close-banner a' ).click( function ( e ) {
-					var answer = confirm( 'Are you sure you\'d like to close this banner?' + "\n" + '(Don\'t forget to save your theme options)' );
+					var answer = confirm( 'Are you sure you\'d like to close this banner?' + "\n" + 'Before closing this banner, make sure you have saved your theme options.' );
 					if ( answer ) {} else {
 						return false;
 					}

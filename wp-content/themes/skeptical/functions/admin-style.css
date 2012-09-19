@@ -14,8 +14,17 @@
 
 #woo_container  { margin-top: 15px; width: 827px; position:relative; z-index: 0 }
 
+/* WOOSEO AND WOOSIDEBARS DEPRECATION BANNER */
+#woodeprecate-banner  { position: relative; margin: 0 0 2em; padding: 15px 15px 15px 15px; border: 1px solid #C00; background: #FFEBE8; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #fff; -moz-box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #fff; -webkit-box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #fff; }
+#woodeprecate-banner span  { display: block; text-shadow: 1px 1px 0 #fff; font-size: 14px; line-height: 22px; color: #595959; }
+#woodeprecate-banner span.main  { margin-top: 2px; font-weight: bold; font-size: 16px; }
+#woodeprecate-banner .button-primary  { position: absolute; right: 20px; top: 27px; }
+#woodeprecate-banner .close-banner  { position: absolute; top: 5px; right: 5px; display: block; width: 13px; height: 13px; background: url(images/ico-dojo-banner-close.png) no-repeat left top; opacity: 0.6; cursor: pointer; }
+#woodeprecate-banner .close-banner:hover  { opacity: 1; }
+#woodeprecate-banner .close-banner a { display: block; width: 13px; height: 13px; text-indent: -9999px; }
+
 /* WOODOJO DOWNLOAD BANNER */
-#woodojo-banner  { position: relative; margin: 0 0 2em; padding: 15px 15px 15px 90px; border: 1px solid #d9d9d9; background: #f5f5f5 url(images/ico-dojo-banner.png) no-repeat 14px 11px; border-radius: 5px; -moz-border-radius: 5px; -ebkit-border-radius: 5px; box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #fff; -moz-box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #fff; -webkit-box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #fff; }
+#woodojo-banner  { position: relative; margin: 0 0 2em; padding: 15px 15px 15px 90px; border: 1px solid #d9d9d9; background: #f5f5f5 url(images/ico-dojo-banner.png) no-repeat 14px 11px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #fff; -moz-box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #fff; -webkit-box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #fff; }
 #woodojo-banner span  { display: block; text-shadow: 1px 1px 0 #fff; font-size: 14px; line-height: 22px; color: #595959; }
 #woodojo-banner span.main  { margin-top: 2px; font-weight: bold; font-size: 16px; }
 #woodojo-banner .button-primary  { position: absolute; right: 20px; top: 27px; }
@@ -24,7 +33,7 @@
 #woodojo-banner .close-banner a { display: block; width: 13px; height: 13px; text-indent: -9999px; }
 
 /* PRESSTRENDS ENABLE BANNER */
-#presstrends-banner  { position: relative; margin: 0 0 2em; padding: 15px 15px 15px 90px; border: 1px solid #d9d9d9; background: #f5f5f5 url(images/ico-presstrends-banner.png) no-repeat 14px 30px; border-radius: 5px; -moz-border-radius: 5px; -ebkit-border-radius: 5px; box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #fff; -moz-box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #fff; -webkit-box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #fff; }
+#presstrends-banner  { position: relative; margin: 0 0 2em; padding: 15px 15px 15px 90px; border: 1px solid #d9d9d9; background: #f5f5f5 url(images/ico-presstrends-banner.png) no-repeat 14px 30px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #fff; -moz-box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #fff; -webkit-box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #fff; }
 #presstrends-banner span { display: block; text-shadow: 1px 1px 0 #fff; font-size: 14px; line-height: 22px; color: #595959; }
 #presstrends-banner span.main  { margin-top: 2px; font-weight: bold; font-size: 16px; margin-bottom: 5px; }
 #presstrends-banner span.info { margin-right: 160px; line-height: 18px; }
@@ -532,7 +541,7 @@ box-shadow: inset 1px 1px 0 rgba(255,255,255,.2), inset -1px -1px 0 rgba(255,255
 
 #wpcontent #woo_container #content.sbm-content { width: 785px; padding-top:20px; margin-left: 0; border-right: 1px solid #D8D8D8; }
 
-#woo_container #content.sbm-content .info-box  { position: relative; margin: 0px 0 20px 0; padding: 0 12px; background: #fff298; border: 1px solid #ecd852; }
+#woo_container #content.sbm-content .info-box  { position: relative; left: 0; margin: 0px 0 20px 0; padding: 0 12px; background: #fff298; border: 1px solid #ecd852; }
 #woo_container #content.sbm-content .info-box h2  { font: bold 14px Helvetica, Arial, sans-serif; text-transform: uppercase; }
 #woo_container #content.sbm-content .info-box p  { margin: 5px 0 10px; font-family: Helvetica, Arial, sans-serif; }
 #woo_container #content.sbm-content .info-box .btn-close  { position: absolute; top: 7px; left: 730px; }

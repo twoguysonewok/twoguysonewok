@@ -1,4 +1,8 @@
 <?php
+// File Security Check
+if ( ! defined( 'ABSPATH' ) ) exit;
+?>
+<?php
 // WooThemes Admin Interface
 
 /*-----------------------------------------------------------------------------------
@@ -27,7 +31,6 @@ if ( ! function_exists( 'woo_update_options_filter' ) ) {
 			foreach( woo_ksesed_option_keys() as $option ) {
 				$new_value[$option] = wp_kses_post( $new_value[$option] );
 			}
-			trigger_error( print_r( $new_value, true ) );
 			// Options that cannot be set without unfiltered HTML
 			foreach( woo_disabled_if_not_unfiltered_html_option_keys() as $option ) {
 				$new_value[$option] = $old_value[$option];
@@ -207,33 +210,9 @@ if ( ! function_exists( 'woothemes_add_admin' ) ) {
 			woothemes_content_builder_menu();
 		}
 
-		// Custom Navigation Menu Item
-		if ( function_exists( 'woo_custom_navigation_menu' ) ) {
-			woo_custom_navigation_menu();
-		}
-
 		// Update Framework Menu Item
 		if( $super_user == $current_user_id || empty( $super_user ) ) {
 			$woothemepage = add_submenu_page( 'woothemes', 'WooFramework Update', 'Update Framework', 'manage_options', 'woothemes_framework_update', 'woothemes_framework_update_page' );
-		}
-
-		// Update Timthumb Menu Item
-		$file_located = locate_template( 'thumb.php' );
-		if ( $file_located != '' ) {
-			$file_test = woo_check_if_thumbs_are_equal( $file_located, true );
-		} else {
-			$file_test = false;
-		}
-		$timthumb_update = get_option( 'woo_timthumb_update' );
-		if( ( $super_user == $current_user_id || empty( $super_user ) ) && $timthumb_update == '' && $file_test ) {
-			$woothemepage = add_submenu_page( 'woothemes', 'Timthumb Update', 'Update Timthumb', 'manage_options', 'woothemes_timthumb_update', 'woothemes_timthumb_update_page' );
-		}
-
-		// Buy Themes Menu Item
-		if( get_option( 'framework_woo_buy_themes_disable' ) != 'true' ) {
-			$woothemepage = add_submenu_page( 'woothemes', __( 'Available WooThemes', 'woothemes' ), __( 'Buy Themes', 'woothemes' ), 'manage_options', 'woothemes_themes', 'woothemes_more_themes_page' );
-			add_action( "admin_print_scripts-$woothemepage", 'woo_load_only' );
-			add_action( "admin_print_styles-$woothemepage", 'woo_framework_load_css' );
 		}
 
 		// Add framework functionaily to the head individually
@@ -316,8 +295,13 @@ if ( ! function_exists( 'woothemes_options_page' ) ) {
 		$woo_framework_version = get_option( 'woo_framework_version' );
 
 		//Version in Backend Header
-		$theme_data = get_theme_data( get_template_directory() . '/style.css' );
-		$local_version = $theme_data['Version'];
+		if ( function_exists( 'wp_get_theme' ) ) {
+			$theme_data = wp_get_theme();
+			$local_version = $theme_data->Version;
+		} else {
+			$theme_data = get_theme_data( get_template_directory() . '/style.css' );
+			$local_version = $theme_data['Version'];
+		}
 
 		//GET themes update RSS feed and do magic
 		include_once( ABSPATH . WPINC . '/feed.php' );
@@ -364,14 +348,14 @@ if ( ! function_exists( 'woothemes_options_page' ) ) {
         <div id="header">
            <div class="logo">
 				<?php if( get_option( 'framework_woo_backend_header_image' ) ) { ?>
-                <img alt="" src="<?php echo get_option( 'framework_woo_backend_header_image' ); ?>"/>
+                <img alt="" src="<?php echo esc_url( get_option( 'framework_woo_backend_header_image' ) ); ?>"/>
                 <?php } else { ?>
-                <img alt="WooThemes" src="<?php echo get_template_directory_uri(); ?>/functions/images/logo.png"/>
+                <img alt="WooThemes" src="<?php echo esc_url( get_template_directory_uri() . '/functions/images/logo.png' ); ?>"/>
                 <?php } ?>
             </div>
              <div class="theme-info">
-				<span class="theme"><?php echo $themename; ?> <?php echo $local_version; ?></span>
-				<span class="framework"><?php _e( 'Framework', 'woothemes' ); ?> <?php echo $woo_framework_version; ?></span>
+				<span class="theme"><?php echo esc_html( $themename ); ?> <?php echo esc_html( $local_version ); ?></span>
+				<span class="framework"><?php _e( 'Framework', 'woothemes' ); ?> <?php echo esc_html( $woo_framework_version ); ?></span>
 			</div>
 			<div class="clear"></div>
 		</div>
@@ -381,24 +365,52 @@ if ( ! function_exists( 'woothemes_options_page' ) ) {
 ?>
 		<div id="support-links">
 			<ul>
-				<li class="changelog"><a title="Theme Changelog" href="<?php echo $manualurl; ?>#Changelog"><?php _e( 'View Changelog', 'woothemes' ); ?></a></li>
-				<li class="docs"><a title="Theme Documentation" href="<?php echo $manualurl; ?>"><?php _e( 'View Themedocs', 'woothemes' ); ?></a></li>
-				<li class="forum"><a href="http://www.woothemes.com/support-forum" target="_blank"><?php _e( 'Visit Forum', 'woothemes' ); ?></a></li>
-                <li class="right"><img style="display:none" src="<?php echo get_template_directory_uri(); ?>/functions/images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="Working..." /><a href="#" id="expand_options">[+]</a> <input type="submit" value="Save All Changes" class="button submit-button" /></li>
+				<li class="changelog"><a title="Theme Changelog" href="<?php echo esc_url( $manualurl ); ?>#Changelog"><?php _e( 'View Changelog', 'woothemes' ); ?></a></li>
+				<li class="docs"><a title="Theme Documentation" href="<?php echo esc_url( $manualurl ); ?>"><?php _e( 'View Themedocs', 'woothemes' ); ?></a></li>
+				<li class="forum"><a href="<?php echo esc_url( 'http://support.woothemes.com' ); ?>" target="_blank"><?php _e( 'Visit Forum', 'woothemes' ); ?></a></li>
+                <li class="right"><img style="display:none" src="<?php echo esc_url( get_template_directory_uri() . '/functions/images/loading-top.gif' ); ?>" class="ajax-loading-img ajax-loading-img-top" alt="Working..." /><a href="#" id="expand_options">[+]</a> <input type="submit" value="Save All Changes" class="button submit-button" /></li>
 			</ul>
 		</div>
         <div id="main">
-	        <div id="woo-nav">
-	        	<div id="woo-nav-shadow"></div><!--/#woo-nav-shadow-->
-				<ul>
-					<?php echo $return[1]; ?>
-				</ul>
-			</div>
-			<div id="content">
-	        	<?php echo $return[0]; /* Settings */ ?>
-	        </div>
-	        <div class="clear"></div>
-
+	    	<?php if ( is_array( $return ) ) { ?>
+	    	    <div id="woo-nav">
+	    	    	<div id="woo-nav-shadow"></div><!--/#woo-nav-shadow-->
+					<?php if ( isset( $return[1] ) ) { ?>
+						<ul>
+							<?php echo $return[1]; ?>
+						</ul>
+					<?php } ?>
+				</div>
+				<div id="content">
+	    	    	<?php if ( isset( $return[0] ) ) { echo $return[0]; } /* Settings */ ?>
+	    	    </div>
+	    	    <div class="clear"></div>
+			<?php } else { ?>
+				<div id="woo-nav">
+	    	    	<div id="woo-nav-shadow"></div><!--/#woo-nav-shadow-->
+					<ul>
+						<li class="top-level general current">
+							<div class="arrow"><div></div></div><span class="icon"></span><a title="General Settings" href="#woo-option-error"><?php _e( 'Error', 'woothemes' ); ?></a>
+						</li>
+					</ul>
+				</div>
+				<div id="content">
+					<div class="group" id="woo-option-error" style="display: block; ">
+						<div class="section section-info">
+							<h3 class="heading"><?php _e( 'An Error Occured', 'woothemes' ); ?></h3>
+							<div class="option">
+								<div class="controls">
+									<p><?php _e( 'Something went wrong while trying to load your Theme Options panel.', 'woothemes' ); ?></p>
+									<p><?php echo sprintf( __( 'Please reload the page, if this error persists, please get in touch with us through our %1$s.', 'woothemes' ), '<a href="' . esc_url( 'http://support.woothemes.com' ) . '" target="_blank">' . __( 'Support Desk', 'woothemes' ) . '</a>' ); ?></p>
+								</div>
+								<div class="explain"></div>
+								<div class="clear"> </div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			<?php } ?>
         </div>
         <div class="save_bar_top">
         <img style="display:none" src="<?php echo get_template_directory_uri(); ?>/functions/images/loading-bottom.gif" class="ajax-loading-img ajax-loading-img-bottom" alt="Working..." />
@@ -463,7 +475,7 @@ function woo_admin_head() {
 	} // End IF Statement
 
 ?>
-			if( '<?php echo $is_reset; ?>' == 'true' ) {
+			if( '<?php echo esc_js( $is_reset ); ?>' == 'true' ) {
 
 				var reset_popup = jQuery( '#woo-popup-reset' );
 				reset_popup.fadeIn();
@@ -556,7 +568,7 @@ if ( ! function_exists( 'woo_load_only' ) ) {
 		add_action( 'admin_head', 'woo_admin_head', 10 );
 
 		wp_register_script( 'jquery-ui-datepicker', get_template_directory_uri() . '/functions/js/ui.datepicker.js', array( 'jquery-ui-core' ) );
-		wp_register_script( 'jquery-input-mask', get_template_directory_uri() . '/functions/js/jquery.maskedinput-1.2.2.js', array( 'jquery' ) );
+		wp_register_script( 'jquery-input-mask', get_template_directory_uri() . '/functions/js/jquery.maskedinput.js', array( 'jquery' ), '1.3' );
 		wp_register_script( 'woo-scripts', get_template_directory_uri() . '/functions/js/woo-scripts.js', array( 'jquery' ) );
 		wp_register_script( 'woo-admin-interface', get_template_directory_uri() . '/functions/js/woo-admin-interface.js', array( 'jquery' ), '5.3.5' );
 		wp_register_script( 'colourpicker', get_template_directory_uri() . '/functions/js/colorpicker.js', array( 'jquery' ) );
@@ -812,7 +824,7 @@ function woo_options_save ( $type, $data ) {
 				$woo_array[$name] = $value;
 			}
 
-			$output .= '<li><strong>' . $name . '</strong> - ' . $value . '</li>';
+			$output .= '<li><strong>' . esc_html( $name ) . '</strong> - ' . esc_html( $value ) . '</li>';
 		}
 		$output .= "</ul>";
 
@@ -969,8 +981,8 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 			//Start Heading
 			if ( $value['type'] != 'heading' && $value['type'] != 'subheading' ) {
 				$class = ''; if( isset( $value['class'] ) ) { $class = ' ' . $value['class']; }
-				$output .= '<div class="section section-'.$value['type'] . $class .'">'."\n";
-				$output .= '<h3 class="heading">'. $value['name'] .'</h3>'."\n";
+				$output .= '<div class="section section-' . esc_attr( $value['type'] ) . esc_attr( $class ) .'">'."\n";
+				$output .= '<h3 class="heading">'. esc_html( $value['name'] ) .'</h3>'."\n";
 				$output .= '<div class="option">'."\n" . '<div class="controls">'."\n";
 
 			}
@@ -981,14 +993,14 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 
 			case 'text':
 				$val = $value['std'];
-				$std = get_option( $value['id'] );
+				$std = esc_html( get_option( $value['id'] ) );
 				if ( $std != "" ) { $val = $std; }
 				$val = stripslashes( $val ); // Strip out unwanted slashes.
-				$output .= '<input class="woo-input" name="'. $value['id'] .'" id="'. $value['id'] .'" type="'. $value['type'] .'" value="'. esc_attr( $val ) .'" />';
+				$output .= '<input class="woo-input" name="'. esc_attr( $value['id'] ) .'" id="'. esc_attr( $value['id'] ) .'" type="'. esc_attr( $value['type'] ) .'" value="'. esc_attr( $val ) .'" />';
 				break;
 
 			case 'select':
-				$output .= '<div class="select_wrapper"><select class="woo-input" name="'. $value['id'] .'" id="'. $value['id'] .'">';
+				$output .= '<div class="select_wrapper"><select class="woo-input" name="'. esc_attr( $value['id'] ) .'" id="'. esc_attr( $value['id'] ) .'">';
 
 				$select_value = stripslashes( get_option( $value['id'] ) );
 
@@ -1004,7 +1016,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 					}
 
 					$output .= '<option'. $selected .'>';
-					$output .= $option;
+					$output .= esc_html( $option );
 					$output .= '</option>';
 
 				}
@@ -1016,7 +1028,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				$output .= '<div class="select_wrapper">' . "\n";
 
 				if ( is_array( $value['options'] ) ) {
-					$output .= '<select class="woo-input" name="'. $value['id'] .'" id="'. $value['id'] .'">';
+					$output .= '<select class="woo-input" name="'. esc_attr( $value['id'] ) .'" id="'. esc_attr( $value['id'] ) .'">';
 
 					$select_value = stripslashes( get_option( $value['id'] ) );
 
@@ -1033,7 +1045,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 						}
 
 						$output .= '<option'. $selected .' value="'.esc_attr( $option ).'">';
-						$output .= $name;
+						$output .= esc_html( $name );
 						$output .= '</option>';
 
 					}
@@ -1048,7 +1060,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				$val = $value['std'];
 				$std = get_option( $value['id'] );
 				if ( $std != "" ) { $val = $std; }
-				$output .= '<input class="woo-input-calendar" type="text" name="'.$value['id'].'" id="'.$value['id'].'" value="'.esc_attr( $val ).'">';
+				$output .= '<input class="woo-input-calendar" type="text" name="'.esc_attr( $value['id'] ).'" id="'.esc_attr( $value['id']).'" value="'.esc_attr( $val ).'">';
 				$output .= '<input type="hidden" name="datepicker-image" value="' . get_template_directory_uri() . '/functions/images/calendar.gif" />';
 
 				break;
@@ -1057,7 +1069,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				$val = $value['std'];
 				$std = get_option( $value['id'] );
 				if ( $std != "" ) { $val = $std; }
-				$output .= '<input class="woo-input-time" name="'. $value['id'] .'" id="'. $value['id'] .'" type="text" value="'. esc_attr( $val ) .'" />';
+				$output .= '<input class="woo-input-time" name="'. esc_attr( $value['id'] ) .'" id="'. esc_attr( $value['id'] ) .'" type="text" value="'. esc_attr( $val ) .'" />';
 				break;
 				
 			case 'textarea':
@@ -1078,7 +1090,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				}
 				$std = get_option( $value['id'] );
 				if( $std != "" ) { $ta_value = stripslashes( $std ); }
-				$output .= '<textarea ' . ( ! current_user_can( 'unfiltered_html' ) && in_array( $value['id'], woo_disabled_if_not_unfiltered_html_option_keys() ) ? 'disabled="disabled" ' : '' ) . 'class="woo-input" name="'. $value['id'] .'" id="'. $value['id'] .'" cols="'. $cols .'" rows="8">'.esc_textarea( $ta_value ).'</textarea>';
+				$output .= '<textarea ' . ( ! current_user_can( 'unfiltered_html' ) && in_array( $value['id'], woo_disabled_if_not_unfiltered_html_option_keys() ) ? 'disabled="disabled" ' : '' ) . 'class="woo-input" name="'. esc_attr( $value['id'] ) .'" id="'. esc_attr( $value['id'] ) .'" cols="'. esc_attr( $cols ) .'" rows="8">'.esc_textarea( $ta_value ).'</textarea>';
 
 
 				break;
@@ -1095,7 +1107,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 						} else {
 							if ( $value['std'] == $key ) { $checked = ' checked'; }
 						}
-						$output .= '<div class="radio-wrapper"><input class="woo-input woo-radio" type="radio" name="'. $value['id'] .'" value="'. esc_attr( $key ) .'" '. $checked .' /><label>' . $option .'</label></div>';
+						$output .= '<div class="radio-wrapper"><input class="woo-input woo-radio" type="radio" name="'. esc_attr( $value['id'] ) .'" value="'. esc_attr( $key ) .'" '. $checked .' /><label>' . esc_html( $option ) .'</label></div>';
 
 					}
 				}
@@ -1122,7 +1134,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				else {
 					$checked = '';
 				}
-				$output .= '<input type="checkbox" class="checkbox woo-input" name="'.  $value['id'] .'" id="'. $value['id'] .'" value="true" '. $checked .' />';
+				$output .= '<input type="checkbox" class="checkbox woo-input" name="'.  esc_attr( $value['id'] ) .'" id="'. esc_attr( $value['id'] ) .'" value="true" '. $checked .' />';
 
 				break;
 				
@@ -1146,7 +1158,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 						} else {
 							$checked = '';
 						}
-						$output .= '<input type="checkbox" class="checkbox woo-input" name="'. $woo_key .'" id="'. $woo_key .'" value="true" '. $checked .' /><label for="'. $woo_key .'">'. $option .'</label><br />';
+						$output .= '<input type="checkbox" class="checkbox woo-input" name="'. esc_attr( $woo_key ) .'" id="'. esc_attr( $woo_key ) .'" value="true" '. $checked .' /><label for="'. esc_attr( $woo_key ) .'">'. esc_html( $option ) .'</label><br />';
 
 					}
 				}
@@ -1174,7 +1186,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 						} else {
 							$checked = '';
 						}
-						$output .= '<input type="checkbox" class="checkbox woo-input" name="'. $woo_key .'" id="'. $woo_key .'" value="true" '. $checked .' /><label for="'. $woo_key .'">'. $option .'</label><br />';
+						$output .= '<input type="checkbox" class="checkbox woo-input" name="'. esc_attr( $woo_key ) .'" id="'. esc_attr( $woo_key ) .'" value="true" '. $checked .' /><label for="'. esc_attr( $woo_key ) .'">'. esc_html( $option ) .'</label><br />';
 
 					}
 				}
@@ -1192,8 +1204,8 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				$val = $value['std'];
 				$stored  = get_option( $value['id'] );
 				if ( $stored != "" ) { $val = $stored; }
-				$output .= '<div id="' . $value['id'] . '_picker" class="colorSelector"><div></div></div>';
-				$output .= '<input class="woo-color" name="'. $value['id'] .'" id="'. $value['id'] .'" type="text" value="'. esc_attr( $val ) .'" />';
+				$output .= '<div id="' . esc_attr( $value['id'] ) . '_picker" class="colorSelector"><div></div></div>';
+				$output .= '<input class="woo-color" name="'. esc_attr( $value['id'] ) .'" id="'. esc_attr( $value['id'] ) .'" type="text" value="'. esc_attr( $val ) .'" />';
 				break;
 
 			case "typography":
@@ -1212,26 +1224,26 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				if ( $typography_stored['unit'] == 'px' ) {
 					$show_px = '';
 					$show_em = ' style="display:none" ';
-					$name_px = ' name="'. $value['id'].'_size" ';
+					$name_px = ' name="'. esc_attr( $value['id'].'_size') . '" ';
 					$name_em = '';
 				} else if ( $typography_stored['unit'] == 'em' ) {
 					$show_em = '';
 					$show_px = 'style="display:none"';
-					$name_em = ' name="'. $value['id'].'_size" ';
+					$name_em = ' name="'. esc_attr( $value['id'].'_size') . '" ';
 					$name_px = '';
 				} else {
 					$show_px = '';
 					$show_em = ' style="display:none" ';
-					$name_px = ' name="'. $value['id'].'_size" ';
+					$name_px = ' name="'. esc_attr( $value['id'].'_size') . '" ';
 					$name_em = '';
 				}
-				$output .= '<select class="woo-typography woo-typography-size woo-typography-size-px"  id="'. $value['id'].'_size_px" '. $name_px . $show_px .'>';
+				$output .= '<select class="woo-typography woo-typography-size woo-typography-size-px"  id="'. esc_attr( $value['id'].'_size_px') . '" '. $name_px . $show_px .'>';
 				for ( $i = 9; $i < 71; $i++ ) {
 					if( $val == strval( $i ) ) { $active = 'selected="selected"'; } else { $active = ''; }
-					$output .= '<option value="'. $i .'" ' . $active . '>'. $i .'</option>'; }
+					$output .= '<option value="'. esc_attr( $i ) .'" ' . $active . '>'. esc_html( $i ) .'</option>'; }
 				$output .= '</select>';
 
-				$output .= '<select class="woo-typography woo-typography-size woo-typography-size-em" id="'. $value['id'].'_size_em" '. $name_em . $show_em.'>';
+				$output .= '<select class="woo-typography woo-typography-size woo-typography-size-em" id="'. esc_attr( $value['id'].'_size_em' ) . '" '. $name_em . $show_em.'>';
 				$em = 0.5;
 				for ( $i = 0; $i < 39; $i++ ) {
 					if ( $i <= 24 )   // up to 2.0em in 0.1 increments
@@ -1242,7 +1254,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 						$em = $em + 0.5;
 					if( $val == strval( $em ) ) { $active = 'selected="selected"'; } else { $active = ''; }
 					//echo ' '. $value['id'] .' val:'.floatval($val). ' -> ' . floatval($em) . ' $<br />' ;
-					$output .= '<option value="'. $em .'" ' . $active . '>'. $em .'</option>'; }
+					$output .= '<option value="'. esc_attr( $em ) .'" ' . $active . '>'. esc_html( $em ) .'</option>'; }
 				$output .= '</select>';
 
 				/* Font Unit */
@@ -1251,7 +1263,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				$em = ''; $px = '';
 				if( $val == 'em' ) { $em = 'selected="selected"'; }
 				if( $val == 'px' ) { $px = 'selected="selected"'; }
-				$output .= '<select class="woo-typography woo-typography-unit" name="'. $value['id'].'_unit" id="'. $value['id'].'_unit">';
+				$output .= '<select class="woo-typography woo-typography-unit" name="'. esc_attr( $value['id'] ) .'_unit" id="'. esc_attr( $value['id'].'_unit' ) . '">';
 				$output .= '<option value="px" '. $px .'">px</option>';
 				$output .= '<option value="em" '. $em .'>em</option>';
 				$output .= '</select>';
@@ -1297,7 +1309,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				if ( strpos( $val, 'Courier' ) !== false ) { $font16 = 'selected="selected"'; }
 				if ( strpos( $val, 'Century Gothic' ) !== false ) { $font17 = 'selected="selected"'; }
 
-				$output .= '<select class="woo-typography woo-typography-face" name="'. $value['id'].'_face" id="'. $value['id'].'_face">';
+				$output .= '<select class="woo-typography woo-typography-face" name="'. esc_attr( $value['id'].'_face' ) . '" id="'. esc_attr( $value['id'].'_face') . '">';
 				$output .= '<option value="Arial, sans-serif" '. $font01 .'>Arial</option>';
 				$output .= '<option value="Verdana, Geneva, sans-serif" '. $font02 .'>Verdana</option>';
 				$output .= '<option value="&quot;Trebuchet MS&quot;, Tahoma, sans-serif"'. $font03 .'>Trebuchet</option>';
@@ -1325,7 +1337,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 					$font[$key] = '';
 				if ( $val == $gfont['name'] ) { $font[$key] = 'selected="selected"'; }
 				$name = $gfont['name'];
-				$output .= '<option value="'.$name.'" '. $font[$key] .'>'.$name.'</option>';
+				$output .= '<option value="'.esc_attr( $name ).'" '. $font[$key] .'>'.esc_html( $name ).'</option>';
 				endforeach;
 
 				// Custom Font stack
@@ -1349,7 +1361,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				if( $val == 'bold' ) { $bold = 'selected="selected"'; }
 				if( $val == 'bold italic' ) { $bolditalic = 'selected="selected"'; }
 
-				$output .= '<select class="woo-typography woo-typography-style" name="'. $value['id'].'_style" id="'. $value['id'].'_style">';
+				$output .= '<select class="woo-typography woo-typography-style" name="'. esc_attr( $value['id'].'_style' ) . '" id="'. esc_attr( $value['id'].'_style' ) . '">';
 				$output .= '<option value="normal" '. $normal .'>Normal</option>';
 				$output .= '<option value="italic" '. $italic .'>Italic</option>';
 				$output .= '<option value="bold" '. $bold .'>Bold</option>';
@@ -1359,8 +1371,8 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				/* Font Color */
 				$val = $default['color'];
 				if ( $typography_stored['color'] != "" ) { $val = $typography_stored['color']; }
-				$output .= '<div id="' . $value['id'] . '_color_picker" class="colorSelector"><div></div></div>';
-				$output .= '<input class="woo-color woo-typography woo-typography-color" name="'. $value['id'] .'_color" id="'. $value['id'] .'_color" type="text" value="'. esc_attr( $val ) .'" />';
+				$output .= '<div id="' . esc_attr( $value['id'] . '_color_picker' ) .'" class="colorSelector"><div></div></div>';
+				$output .= '<input class="woo-color woo-typography woo-typography-color" name="'. esc_attr( $value['id'] .'_color' ) . '" id="'. esc_attr( $value['id'] .'_color' ) . '" type="text" value="'. esc_attr( $val ) .'" />';
 
 				break;
 
@@ -1371,10 +1383,10 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				/* Border Width */
 				$val = $default['width'];
 				if ( $border_stored['width'] != "" ) { $val = $border_stored['width']; }
-				$output .= '<select class="woo-border woo-border-width" name="'. $value['id'].'_width" id="'. $value['id'].'_width">';
+				$output .= '<select class="woo-border woo-border-width" name="'. esc_attr( $value['id'].'_width' ) . '" id="'. esc_attr( $value['id'].'_width' ) . '">';
 				for ( $i = 0; $i < 21; $i++ ) {
 					if( $val == $i ) { $active = 'selected="selected"'; } else { $active = ''; }
-					$output .= '<option value="'. $i .'" ' . $active . '>'. $i .'px</option>'; }
+					$output .= '<option value="'. esc_attr( $i ) .'" ' . $active . '>'. esc_html( $i ) .'px</option>'; }
 				$output .= '</select>';
 
 				/* Border Style */
@@ -1385,7 +1397,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				if( $val == 'dashed' ) { $dashed = 'selected="selected"'; }
 				if( $val == 'dotted' ) { $dotted = 'selected="selected"'; }
 
-				$output .= '<select class="woo-border woo-border-style" name="'. $value['id'].'_style" id="'. $value['id'].'_style">';
+				$output .= '<select class="woo-border woo-border-style" name="'. esc_attr( $value['id'].'_style' ) . '" id="'. esc_attr( $value['id'].'_style' ) . '">';
 				$output .= '<option value="solid" '. $solid .'>Solid</option>';
 				$output .= '<option value="dashed" '. $dashed .'>Dashed</option>';
 				$output .= '<option value="dotted" '. $dotted .'>Dotted</option>';
@@ -1394,8 +1406,8 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				/* Border Color */
 				$val = $default['color'];
 				if ( $border_stored['color'] != "" ) { $val = $border_stored['color']; }
-				$output .= '<div id="' . $value['id'] . '_color_picker" class="colorSelector"><div></div></div>';
-				$output .= '<input class="woo-color woo-border woo-border-color" name="'. $value['id'] .'_color" id="'. $value['id'] .'_color" type="text" value="'. esc_attr( $val ) .'" />';
+				$output .= '<div id="' . esc_attr( $value['id'] . '_color_picker' ) . '" class="colorSelector"><div></div></div>';
+				$output .= '<input class="woo-color woo-border woo-border-color" name="'. esc_attr( $value['id'] .'_color' ) . '" id="'. esc_attr( $value['id'] .'_color' ) . '" type="text" value="'. esc_attr( $val ) .'" />';
 
 				break;
 
@@ -1418,9 +1430,9 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 					}
 
 					$output .= '<span>';
-					$output .= '<input type="radio" id="woo-radio-img-' . $value['id'] . $i . '" class="checkbox woo-radio-img-radio" value="'. esc_attr( $key ) .'" name="'. $value['id'].'" '.$checked.' />';
+					$output .= '<input type="radio" id="woo-radio-img-' . $value['id'] . $i . '" class="checkbox woo-radio-img-radio" value="'. esc_attr( $key ) .'" name="'. esc_attr( $value['id'] ).'" '.$checked.' />';
 					$output .= '<span class="woo-radio-img-label">'. esc_html( $key ) .'</span>';
-					$output .= '<img src="'.$option.'" alt="" class="woo-radio-img-img '. $selected .'" onClick="document.getElementById(\'woo-radio-img-'. $value['id'] . $i.'\').checked = true;" />';
+					$output .= '<img src="'.esc_attr( $option ).'" alt="" class="woo-radio-img-img '. $selected .'" onClick="document.getElementById(\'woo-radio-img-'. $value['id'] . $i.'\').checked = true;" />';
 					$output .= '</span>';
 
 				}
@@ -1445,7 +1457,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				$output .= '<span class="time-selectors">' . "\n";
 				$output .= ' <span class="woo-timestamp-at">' . __( '@', 'woothemes' ) . '</span> ';
 				
-				$output .= '<select name="' . $value['id'] . '[hour]" class="woo-select-timestamp">' . "\n";
+				$output .= '<select name="' . esc_attr( $value['id'] . '[hour]' ) . '" class="woo-select-timestamp">' . "\n";
 					for ( $i = 0; $i <= 23; $i++ ) {
 						
 						$j = $i;
@@ -1453,7 +1465,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 							$j = '0' . $i;
 						}
 						
-						$output .= '<option value="' . $i . '"' . selected( date( 'H', $val ), $j, false ) . '>' . $j . '</option>' . "\n";
+						$output .= '<option value="' . esc_attr( $i ) . '"' . selected( date( 'H', $val ), $j, false ) . '>' . esc_html( $j ) . '</option>' . "\n";
 					}
 				$output .= '</select>' . "\n";
 				
@@ -1465,7 +1477,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 							$j = '0' . $i;
 						}
 						
-						$output .= '<option value="' . $i . '"' . selected( date( 'i', $val ), $j, false ) .'>' . $j . '</option>' . "\n";
+						$output .= '<option value="' . esc_attr( $i ) . '"' . selected( date( 'i', $val ), $j, false ) .'>' . esc_html( $j ) . '</option>' . "\n";
 					}
 				$output .= '</select>' . "\n";
 				/*
@@ -1484,7 +1496,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				
 				$output .= '</span><!--/.time-selectors-->' . "\n";
 				
-				$output .= '<input class="woo-input-calendar" type="text" name="' . $value['id'] . '[date]" id="'.$value['id'].'" value="' . esc_attr( date( 'm/d/Y', $val ) ) . '">';
+				$output .= '<input class="woo-input-calendar" type="text" name="' . esc_attr( $value['id'] . '[date]' ) . '" id="'.esc_attr( $value['id'] ).'" value="' . esc_attr( date( 'm/d/Y', $val ) ) . '">';
 			break;
 
 			case 'slider':
@@ -1492,8 +1504,8 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				$std = get_option( $value['id'] );
 				if ( $std != "" ) { $val = $std; }
 				$val = stripslashes( $val ); // Strip out unwanted slashes.
-				$output .= '<div class="ui-slide" id="'. $value['id'] .'_div" min="'. esc_attr( $value['min'] ) .'" max="'. esc_attr( $value['max'] ) .'" inc="'. esc_attr( $value['increment'] ) .'"></div>';
-				$output .= '<input readonly="readonly" class="woo-input" name="'. $value['id'] .'" id="'. $value['id'] .'" type="'. $value['type'] .'" value="'. esc_attr( $val ) .'" />';
+				$output .= '<div class="ui-slide" id="'. esc_attr( $value['id'] .'_div' ) . '" min="'. esc_attr( $value['min'] ) .'" max="'. esc_attr( $value['max'] ) .'" inc="'. esc_attr( $value['increment'] ) .'"></div>';
+				$output .= '<input readonly="readonly" class="woo-input" name="'. esc_attr( $value['id'] ) .'" id="'. esc_attr( $value['id'] ) .'" type="'. esc_attr( $value['type'] ) .'" value="'. esc_attr( $val ) .'" />';
 			break;
 
 			case "heading":
@@ -1505,8 +1517,8 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				$jquery_click_hook = str_replace( ' ', '', $jquery_click_hook );
 
 				$jquery_click_hook = "woo-option-" . $jquery_click_hook;
-				$menu .= '<li class="'.$value['icon'].'"><a title="'.  $value['name'] .'" href="#'.  $jquery_click_hook  .'">'.  $value['name'] .'</a></li>';
-				$output .= '<div class="group" id="'. $jquery_click_hook  .'"><h1 class="subtitle">'.$value['name'].'</h1>'."\n";
+				$menu .= '<li class="'.esc_attr( $value['icon'] ).'"><a title="'. esc_attr( $value['name'] ) .'" href="#'.  $jquery_click_hook  .'">'.  esc_html( $value['name'] ) .'</a></li>';
+				$output .= '<div class="group" id="'. esc_attr( $jquery_click_hook ) .'"><h1 class="subtitle">'. esc_html( $value['name'] ) .'</h1>'."\n";
 				break;
 			
 			case "subheading":
@@ -1518,8 +1530,8 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				$jquery_click_hook = str_replace( ' ', '', $jquery_click_hook );
 
 				$jquery_click_hook = "woo-option-" . $jquery_click_hook;
-				$menu .= '<li><a title="' . $value['name'] . '" href="#' . $jquery_click_hook . '">' . $value['name'] . '</a></li>';
-				$output .= '<div class="group" id="'. $jquery_click_hook  .'"><h1 class="subtitle">'.$value['name'].'</h1>'."\n";
+				$menu .= '<li><a title="' . esc_attr( $value['name'] ) . '" href="#' . $jquery_click_hook . '">' . esc_html( $value['name'] ) . '</a></li>';
+				$output .= '<div class="group" id="'. esc_attr( $jquery_click_hook ) .'"><h1 class="subtitle">'. esc_html( $value['name'] ).'</h1>'."\n";
 				break;
 			}
 
@@ -1535,8 +1547,8 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 
 					if( $array['type'] == 'text' ) { // Only text at this point
 
-						$output .= '<input class="input-text-small woo-input" name="'. $id .'" id="'. $id .'" type="text" value="'. esc_attr( $std ) .'" />';
-						$output .= '<span class="meta-two">'.$meta.'</span>';
+						$output .= '<input class="input-text-small woo-input" name="'. esc_attr( $id ) .'" id="'. esc_attr( $id ) .'" type="text" value="'. esc_attr( $std ) .'" />';
+						$output .= '<span class="meta-two">'. esc_html( $meta ) .'</span>';
 					}
 				}
 			}
@@ -1547,7 +1559,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				}
 				$explain_value = ( isset( $value['desc'] ) ) ? $value['desc'] : '';
 				if ( !current_user_can( 'unfiltered_html' ) && isset( $value['id'] ) && in_array( $value['id'], woo_disabled_if_not_unfiltered_html_option_keys() ) )
-					$explain_value .= '<br /><br /><b>' . __( 'You are not able to update this option because you lack the <code>unfiltered_html</code> capability.', 'woothemes' ) . '</b>';
+					$explain_value .= '<br /><br /><b>' . esc_html( __( 'You are not able to update this option because you lack the <code>unfiltered_html</code> capability.', 'woothemes' ) ) . '</b>';
 				$output .= '</div><div class="explain">'. $explain_value .'</div>'."\n";
 				$output .= '<div class="clear"> </div></div></div>'."\n";
 			}
@@ -1575,12 +1587,12 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				$menu .= '<li class="top-level ' . $class . '">' . "\n" . '<div class="arrow"><div></div></div>'; 
 				if ( isset( $v['icon'] ) && ( $v['icon'] != '' ) )
 					$menu .= '<span class="icon"></span>';
-				$menu .= '<a title="' . $v['name'] . '" href="#' . $v['token'] . '">' . $v['name'] . '</a>' . "\n";
+				$menu .= '<a title="' . esc_attr( $v['name'] ) . '" href="#' . $v['token'] . '">' . esc_html( $v['name'] ) . '</a>' . "\n";
 				
 				if ( isset( $v['children'] ) && ( count( $v['children'] ) > 0 ) ) {
 					$menu .= '<ul class="sub-menu">' . "\n";
 						foreach ( $v['children'] as $i => $j ) {
-							$menu .= '<li class="icon">' . "\n" . '<a title="' . $j['name'] . '" href="#' . $j['token'] . '">' . $j['name'] . '</a></li>' . "\n";
+							$menu .= '<li class="icon">' . "\n" . '<a title="' . esc_attr( $j['name'] ) . '" href="#' . $j['token'] . '">' . esc_html( $j['name'] ) . '</a></li>' . "\n";
 						}
 					$menu .= '</ul>' . "\n";
 				}
@@ -1641,7 +1653,11 @@ if ( ! function_exists( 'woothemes_version_checker' ) ) {
 				// Return without notification
 				// return;
 				
-				$theme_data = get_theme_data( get_template_directory() . '/style.css' );
+				if ( function_exists( 'wp_get_theme' ) ) {
+					$theme_data = wp_get_theme( get_template_directory() . '/style.css' );
+				} else {
+					$theme_data = get_theme_data( get_template_directory() . '/style.css' );
+				}
 				$latest_version_via_rss = $theme_data['Version'];
 			} else {
 				//Figure out how many total items there are, but limit it to 5.
@@ -1733,24 +1749,27 @@ if ( ! function_exists( 'woothemes_version_checker' ) ) {
 /* Woothemes Thumb Detection Notice - woo_thumb_admin_notice */
 /*-----------------------------------------------------------------------------------*/
 function woo_thumb_admin_notice() {
-
+	
+	if ( get_user_setting( 'wooframeworkhidebannerwootimthumb', '0' ) == '1' ) { return; }
 	global $current_user;
 	$current_user_id = $current_user->user_login;
 	$super_user = get_option( 'framework_woo_super_user' );
 	if( $super_user == $current_user_id || empty( $super_user ) ) {
-		$timthumb_update = get_option( 'woo_timthumb_update' );
-		if ( isset( $_GET['page'] ) ) { $page = $_GET['page']; } else { $page = ''; }
-		$url = admin_url( 'admin.php?page=woothemes_timthumb_update' );
-		if ( ( locate_template( 'thumb.php' ) != '' ) && $timthumb_update == '' && $page != 'woothemes_timthumb_update' ) {
+		// Test for old timthumb scripts
+		$thumb_php_test = file_exists(  get_template_directory() . '/thumb.php' );
+		$timthumb_php_test = file_exists(  get_template_directory() . '/timthumb.php' );
+		
+		if ( $thumb_php_test || $timthumb_php_test ) {
 			echo '<div class="error">
-    			   <p>Old version of TimThumb detected in your theme folder. <a href="'.$url.'">Click here to update</a>.</p>
-    			</div>';
+    			   <p><strong>' . __( 'ATTENTION: A possible old version of the TimThumb script was detected in your theme folder. Please remove the following files from your theme as a security precaution', 'woothemes' ) . ':</strong></p>';
+    		if ( $thumb_php_test ) { echo '<p><strong>- thumb.php</strong></p>'; }
+    		if ( $timthumb_php_test ) { echo '<p><strong>- timthumb.php</strong></p>'; }
+    		echo '</div>';
 
 		}
 	} // End If Statement
 } // End woo_thumb_admin_notice()
 
-update_option( 'woo_timthumb_update', '' );
 add_action( 'admin_notices', 'woo_thumb_admin_notice' );
 
 /*-----------------------------------------------------------------------------------*/
@@ -1774,7 +1793,11 @@ if ( $pagenow == 'admin.php' && isset( $_GET['page'] ) && $_GET['page'] == 'woot
  */
 if ( ! function_exists( 'woo_theme_update_notice' ) ) {
 	function woo_theme_update_notice () {
-		$theme_data = get_theme_data( get_template_directory() . '/style.css' );
+		if ( function_exists( 'wp_get_theme' ) ) {
+			$theme_data = wp_get_theme( get_template_directory() . '/style.css' );
+		} else {
+			$theme_data = get_theme_data( get_template_directory() . '/style.css' );
+		}
 		$local_version = $theme_data['Version'];
 
 		$update_data = woothemes_version_checker( $local_version );

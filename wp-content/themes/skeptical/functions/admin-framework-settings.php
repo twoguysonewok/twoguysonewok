@@ -1,4 +1,8 @@
 <?php
+// File Security Check
+if ( ! defined( 'ABSPATH' ) ) exit;
+?>
+<?php
 /*-----------------------------------------------------------------------------------*/
 /* Framework Settings page - woothemes_framework_settings_page */
 /*-----------------------------------------------------------------------------------*/
@@ -11,9 +15,14 @@ function woothemes_framework_settings_page() {
     //Framework Version in Backend Head
     $woo_framework_version = get_option( 'woo_framework_version' );
 
-    //Version in Backend Head
-    $theme_data = get_theme_data( get_template_directory() . '/style.css' );
-    $local_version = $theme_data['Version'];
+    //Version in Backend Header
+	if ( function_exists( 'wp_get_theme' ) ) {
+		$theme_data = wp_get_theme();
+		$local_version = $theme_data->Version;
+	} else {
+		$theme_data = get_theme_data( get_template_directory() . '/style.css' );
+		$local_version = $theme_data['Version'];
+	}
 
     //GET themes update RSS feed and do magic
 	include_once(ABSPATH . WPINC . '/feed.php' );
@@ -40,30 +49,18 @@ function woothemes_framework_settings_page() {
 	$framework_options[] = array( 	'name' => __( 'Disable SEO Menu Item', 'woothemes' ),
 									'desc' => sprintf( __( 'Disable the %s menu item in the theme menu.', 'woothemes' ), '<strong>' . __( 'SEO', 'woothemes' ) . '</strong>' ),
 									'id' => $shortname . '_seo_disable',
-									'std' => '',
+									'std' => 'true',
 									'type' => 'checkbox' );
 
 	$framework_options[] = array( 	'name' => __( 'Disable Sidebar Manager Menu Item', 'woothemes' ),
 									'desc' => sprintf( __( 'Disable the %s menu item in the theme menu.', 'woothemes' ), '<strong>' . __( 'Sidebar Manager', 'woothemes' ) . '</strong>' ),
 									'id' => $shortname . '_sbm_disable',
-									'std' => '',
+									'std' => 'true',
 									'type' => 'checkbox' );
 
 	$framework_options[] = array( 	'name' => __( 'Disable Backup Settings Menu Item', 'woothemes' ),
 									'desc' => sprintf( __( 'Disable the %s menu item in the theme menu.', 'woothemes' ), '<strong>' . __( 'Backup Settings', 'woothemes' ) . '</strong>' ),
 									'id' => $shortname . '_backupmenu_disable',
-									'std' => '',
-									'type' => 'checkbox' );
-
-	$framework_options[] = array( 	'name' => __( 'Disable Buy Themes Menu Item', 'woothemes' ),
-									'desc' => sprintf( __( 'Disable the %s menu item in the theme menu.', 'woothemes' ), '<strong>' . __( 'Buy Themes', 'woothemes' ) . '</strong>' ),
-									'id' => $shortname . '_buy_themes_disable',
-									'std' => '',
-									'type' => 'checkbox' );
-
-	$framework_options[] = array( 	'name' => __( 'Enable Custom Navigation', 'woothemes' ),
-									'desc' => sprintf( __( 'Enable the old %s menu item. Try to use %s instead, as this function is outdated.', 'woothemes' ), '<strong>' . __( 'Custom Navigation', 'woothemes' ) . '</strong>', '<a href="' . admin_url( 'nav-menus.php' ) . '">' . __( 'WP Menus', 'woothemes' ) . '</a>' ),
-									'id' => $shortname . '_woonav',
 									'std' => '',
 									'type' => 'checkbox' );
 
@@ -204,6 +201,7 @@ function woothemes_framework_settings_page() {
 	?>
 
     <div class="wrap" id="woo_container">
+    <?php do_action( 'wooframework_wooframeworksettings_container_inside' ); ?>
     <div id="woo-popup-save" class="woo-save-popup"><div class="woo-save-save"><?php _e( 'Options Updated', 'woothemes' ); ?></div></div>
     <div id="woo-popup-reset" class="woo-save-popup"><div class="woo-save-reset"><?php _e( 'Options Reset', 'woothemes' ); ?></div></div>
         <form action='' enctype="multipart/form-data" id="wooform" method="post">
@@ -241,7 +239,7 @@ function woothemes_framework_settings_page() {
                 <ul>
                     <li class="changelog"><a title="Theme Changelog" href="<?php echo $manualurl; ?>#Changelog"><?php _e( 'View Changelog', 'woothemes' ); ?></a></li>
                     <li class="docs"><a title="Theme Documentation" href="<?php echo $manualurl; ?>"><?php _e( 'View Themedocs', 'woothemes' ); ?></a></li>
-                    <li class="forum"><a href="http://www.woothemes.com/support-forum" target="_blank"><?php _e( 'Visit Forum', 'woothemes' ); ?></a></li>
+                    <li class="forum"><a href="http://support.woothemes.com" target="_blank"><?php _e( 'Visit Forum', 'woothemes' ); ?></a></li>
                     <li class="right"><img style="display:none" src="<?php echo get_template_directory_uri(); ?>/functions/images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="<?php esc_attr_e( 'Working...', 'woothemes' ); ?>" /><a href="#" id="expand_options">[+]</a> <input type="submit" value="<?php esc_attr_e( 'Save All Changes', 'woothemes' ); ?>" class="button submit-button" /></li>
                 </ul>
             </div>

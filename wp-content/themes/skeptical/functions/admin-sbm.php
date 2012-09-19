@@ -1,4 +1,8 @@
 <?php
+// File Security Check
+if ( ! defined( 'ABSPATH' ) ) exit;
+?>
+<?php
 /*-----------------------------------------------------------------------------------*/
 /* 	WooThemes - Sidebar Manager
 	Version - V.1.05
@@ -480,9 +484,14 @@ function woothemes_sbm_page(){
     //Framework Version in Backend Head
     $woo_framework_version = get_option( 'woo_framework_version' );
 
-    //Version in Backend Head
-    $theme_data = get_theme_data( get_template_directory() . '/style.css' );
-    $local_version = $theme_data['Version'];
+    //Version in Backend Header
+	if ( function_exists( 'wp_get_theme' ) ) {
+		$theme_data = wp_get_theme();
+		$local_version = $theme_data->Version;
+	} else {
+		$theme_data = get_theme_data( get_template_directory() . '/style.css' );
+		$local_version = $theme_data['Version'];
+	}
 
 	//Outout for original sidebars, and new sidebars
 	$init_sidebars = '';
@@ -661,8 +670,8 @@ function woothemes_sbm_page(){
 				var html = '';
 				var class_name = '';
 
-				generatedTitle = woo_sbm_title( '<?php echo $init_sidebar; ?>',name,type);
-				generatedMessage = woo_sbm_description( '<?php echo $init_sidebar; ?>',name,type);
+				generatedTitle = woo_sbm_title( '<?php echo esc_js( $init_sidebar ); ?>',name,type);
+				generatedMessage = woo_sbm_description( '<?php echo esc_js( $init_sidebar ); ?>',name,type);
 
 				jQuery( '#woo-sbm-get-links').show();
 
@@ -872,27 +881,30 @@ function woothemes_sbm_page(){
 </script>
 
 <div class="wrap woo_sidebar_manager" id="woo_container">
+
+	<?php do_action( 'wooframework_woosbm_container_inside' ); ?>
+    
          <div id="header">
             <div class="logo">
              <?php if(get_option( 'framework_woo_backend_header_image')) { ?>
-             <img alt="" src="<?php echo get_option( 'framework_woo_backend_header_image' ); ?>"/>
+             <img alt="" src="<?php echo esc_url( get_option( 'framework_woo_backend_header_image' ) ); ?>"/>
              <?php } else { ?>
-             <img alt="WooThemes" src="<?php echo get_template_directory_uri(); ?>/functions/images/logo.png"/>
+             <img alt="WooThemes" src="<?php echo esc_url( get_template_directory_uri() . '/functions/images/logo.png' ); ?>"/>
              <?php } ?>
              </div>
              <div class="theme-info">
-                 <span class="theme"><?php echo $themename; ?> <?php echo $local_version; ?></span>
-                 <span class="framework">Framework <?php echo $woo_framework_version; ?></span>
+                 <span class="theme"><?php echo esc_html( $themename ); ?> <?php echo esc_html( $local_version ); ?></span>
+                 <span class="framework">Framework <?php echo esc_html( $woo_framework_version ); ?></span>
              </div>
              <div class="clear"></div>
          </div>
          <div id="support-links">
 
              <ul>
-                 <li class="changelog"><a title="Theme Changelog" href="<?php echo $manualurl; ?>#Changelog">View Changelog</a></li>
-                 <li class="docs"><a title="Theme Documentation" href="<?php echo $manualurl; ?>">View Themedocs</a></li>
-                 <li class="forum"><a href="http://www.woothemes.com/support-forum" target="_blank">Visit Forum</a></li>
-                 <li class="right"><img style="display:none" src="<?php echo get_template_directory_uri(); ?>/functions/images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="Working..." /><?php /* <a href="#" id="expand_options">[+]</a> <input type="submit" value="Save All Changes" class="button submit-button" /> */ ?></li>
+                 <li class="changelog"><a title="Theme Changelog" href="<?php echo esc_url( $manualurl ); ?>#Changelog">View Changelog</a></li>
+                 <li class="docs"><a title="Theme Documentation" href="<?php echo esc_url( $manualurl ); ?>">View Themedocs</a></li>
+                 <li class="forum"><a href="http://support.woothemes.com" target="_blank">Visit Forum</a></li>
+                 <li class="right"><img style="display:none" src="<?php echo esc_url( get_template_directory_uri() . '/functions/images/loading-top.gif' ); ?>" class="ajax-loading-img ajax-loading-img-top" alt="Working..." /><?php /* <a href="#" id="expand_options">[+]</a> <input type="submit" value="Save All Changes" class="button submit-button" /> */ ?></li>
              </ul>
 
          </div>
@@ -915,7 +927,7 @@ function woothemes_sbm_page(){
          			<code>woo_sidebar</code> and replace all <code>is_active_sidebar</code> with the new <code>woo_active_sidebar</code>. These are typically found in the
          			<code>sidebar.php</code> &amp; <code>footer.php</code> files.</p>
 
-         			<a class="btn-close" href="#" title="#"><img src="<?php echo get_template_directory_uri(); ?>/functions/images/ico-close.png" alt="Close" /></a>
+         			<a class="btn-close" href="#" title="#"><img src="<?php echo esc_url( get_template_directory_uri() . '/functions/images/ico-close.png' ); ?>" alt="Close" /></a>
 
          		</div>
          		<?php }} ?>
@@ -1370,12 +1382,12 @@ function woo_sbm_callback() {
 
 		parse_str($data,$data_array);
 
-		$type = $data_array['type'];
-		$slug = $data_array['slug'];
-		$name = $data_array['name'];
-		$id = $data_array['id'];
+		$type = esc_html( $data_array['type'] );
+		$slug = esc_html( $data_array['slug'] );
+		$name = esc_html( $data_array['name'] );
+		$id = esc_html( $data_array['id'] );
 		$id = intval($id);
-		$other = $data_array['other'];
+		$other = esc_html( $data_array['other'] );
 
 		$output = '';
 
@@ -1435,19 +1447,19 @@ function woo_sbm_callback() {
 		$data = $_POST['data'];
 
 		parse_str($data,$data_array);
-
-		$type = $data_array['type'];
-		$slug = $data_array['slug'];
-		$name = $data_array['name'];
-		$id = $data_array['id'];
-		$conditional = $data_array['conditional'];
-		$other = $data_array['other'];
-		$sidebar_to_replace = $data_array['sidebar_to_replace'];
-		$sidebar_title = $data_array['sidebar-title'];
-		$sidebar_description = $data_array['sidebar-description'];
-		$sidebar_piggyback = $data_array['sidebar_to_piggyback'];
-		$stage = $data_array['stage'];
-		$piggy = $data_array['piggy'];
+		
+		$type = esc_html( $data_array['type'] );
+		$slug = esc_html( $data_array['slug'] );
+		$name = esc_html( $data_array['name'] );
+		$id = esc_html( $data_array['id'] );
+		$conditional = esc_html( $data_array['conditional'] );
+		$other = esc_html( $data_array['other'] );
+		$sidebar_to_replace = esc_html( $data_array['sidebar_to_replace'] );
+		$sidebar_title = esc_html( $data_array['sidebar-title'] );
+		$sidebar_description = esc_html( $data_array['sidebar-description'] );
+		$sidebar_piggyback = esc_html( $data_array['sidebar_to_piggyback'] );
+		$stage = esc_html( $data_array['stage'] );
+		$piggy = esc_html( $data_array['piggy'] );
 
 		if(empty($woo_sbm_options)){ $woo_sbm_options = array(); }
 
@@ -1532,7 +1544,7 @@ function woo_sbm_callback() {
 		if(is_array($ids)){
 			$id = implode( ',#',$ids);
 		}
-		echo "#$id|$pos";
+		echo esc_html( "#$id|$pos" );
 	}
 
 	if($save_type == 'woo_sbm_save-sidebar'){
@@ -1541,10 +1553,10 @@ function woo_sbm_callback() {
 
 		parse_str($data,$data_array);
 
-		$id = $data_array['sidebar_id'];
-		$sidebar_to_replace = $data_array['sidebar_to_replace'];
-		$name = $data_array['sidebar_name'];
-		$desc = $data_array['sidebar_description'];
+		$id = esc_html( $data_array['sidebar_id'] );
+		$sidebar_to_replace = esc_html( $data_array['sidebar_to_replace'] );
+		$name = esc_html( $data_array['sidebar_name'] );
+		$desc = esc_html( $data_array['sidebar_description'] );
 
 
 		$woo_sbm_options['sidebars'][$id]['conditionals']['sidebar_to_replace'] = $sidebar_to_replace;

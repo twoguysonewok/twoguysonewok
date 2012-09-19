@@ -1,4 +1,8 @@
 <?php
+// File Security Check
+if ( ! defined( 'ABSPATH' ) ) exit;
+?>
+<?php
 /**
  * WooThemes Theme Options Backup
  *
@@ -167,7 +171,7 @@ class WooThemes_Backup {
 		  '<p><strong>' . __( 'Please note that only valid backup files generated through the WooThemes Backup Manager should be imported.', 'woothemes' ) . '</strong></p>' .
 
 		  '<p><strong>' . __( 'Looking for assistance?', 'woothemes' ) . '</strong></p>' .
-		  '<p>' . sprintf( __( 'Please post your query on the %sWooThemes Support Forums%s where we will do our best to assist you further.', 'woothemes' ), '<a href="http://www.woothemes.com/support=forum/" target="_blank">', '</a>' ) . '</p>';
+		  '<p>' . sprintf( __( 'Please post your query on the %sWooThemes Support Forums%s where we will do our best to assist you further.', 'woothemes' ), '<a href="http://support.woothemes.com" target="_blank">', '</a>' ) . '</p>';
 		
 		} // End IF Statement
 		

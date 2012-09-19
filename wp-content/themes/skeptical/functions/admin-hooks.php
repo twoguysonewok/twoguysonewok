@@ -1,4 +1,8 @@
 <?php
+// File Security Check
+if ( ! defined( 'ABSPATH' ) ) exit;
+?>
+<?php
 
 /*-------------------------------------------------------------------------------------
 
@@ -157,6 +161,7 @@ if ( ! function_exists( 'woo_get_query_context' ) ) {
 		
 		} // End IF Statement
 		
+		$query_context = new stdClass();
 		$query_context->context = array();
 	
 		/* Front page of the site. */

@@ -1,5 +1,5 @@
 <?php
-if ( ! isset( $_REQUEST['woo-shortcodes-nonce'] ) || ( $_REQUEST['woo-shortcodes-nonce'] == '' ) ) die( 'Security check' );
+if ( ! isset( $_GET['woo-shortcodes-nonce'] ) || ( $_GET['woo-shortcodes-nonce'] == '' ) ) die( 'Security check' );
 
 // Get the path to the root.
 $full_path = __FILE__;
@@ -12,7 +12,7 @@ $url = $path_bits[0];
 require_once( $url . '/wp-load.php' );
 
 // Nonce security check.    
-$nonce = $_REQUEST['woo-shortcodes-nonce'];
+$nonce = $_GET['woo-shortcodes-nonce'];
 if ( ! wp_verify_nonce( $nonce, 'wooframework-shortcode-generator' ) ) die( 'Security check' );
 
 $woo_framework_version = get_option( 'woo_framework_version' );

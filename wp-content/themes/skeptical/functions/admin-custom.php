@@ -1,4 +1,8 @@
 <?php
+// File Security Check
+if ( ! defined( 'ABSPATH' ) ) exit;
+?>
+<?php
 /**
  * Custom fields for WordPress write panels.
  *
@@ -698,7 +702,7 @@ return $uploader;
  */
 function woo_custom_enqueue ( $hook ) {
 	wp_register_script( 'jquery-ui-datepicker', get_template_directory_uri() . '/functions/js/ui.datepicker.js', array( 'jquery-ui-core' ) );
-	wp_register_script( 'jquery-input-mask', get_template_directory_uri() . '/functions/js/jquery.maskedinput-1.2.2.js', array( 'jquery' ) );
+	wp_register_script( 'jquery-input-mask', get_template_directory_uri() . '/functions/js/jquery.maskedinput.js', array( 'jquery' ), '1.3' );
 	wp_register_script( 'woo-custom-fields', get_template_directory_uri() . '/functions/js/woo-custom-fields.js', array( 'jquery', 'jquery-ui-tabs' ) );
 		
   	if ( in_array( $hook, array( 'post.php', 'post-new.php', 'page-new.php', 'page.php' ) ) ) {

@@ -1,9 +1,34 @@
 *** WooThemes Framework Changelog **
 
+2012.09.10 - version 5.4.1
+ * admin-functions.php - Fixed bug for Google Analytics output.
+
+2012.08.31 - version 5.4.0
+ * - SECURITY UPDATE - Sucuri Security Code Audit update
+ * - Various security checks and improvements were made including attribute escaping, direct file access prevention, code optimization and deprecation.
+ * *.php - Added direct file access security check for all php files.
+ * admin-custom.php - Security improvements.
+ * admin-custom-nav.php - Deprecated old functionality including WooNav and all related assets.
+ * admin-framework-settings.php - Deprecated old functionality.
+ * admin-functions.php - Added additional fonts, general cleanup of code, retired WooNav and all related assets, fixed all error notices, security improvements,.
+ * admin-hooks.php - Fixed error notice for undefined object for $query_context
+ * admin-init.php - Deprecated old functionality.
+ * admin-interface.php - Deprecated old functionality including WooNav and all related assets, security improvements.
+ * admin-sbm.php - Deprecated old functionality, security improvements.
+ * admin-seo.php - Deprecated old functionality, security improvements.
+ * admin-shortcodes.php - Security improvements. Fixed bug in Twitter Follow shortcode to resolve display of the Twitter button.
+ * admin-style.css - Deprecation notices styles.
+ * css/shortcodes.css - Made column shortcodes responsive.
+ * classes/class-wp-app-store-installer.php - added WP App Store installer class
+ * js/jquery.maskedinput.js - Security improvements.
+ * js/shortcode-generator/dialog.php - Security improvements.
+ * js/shortcode-generator/js/dialog.js.php - Security improvements.
+ 
 2012.04.29 - version 5.3.12 - critical
  * - SECURITY UPDATE - Make sure the shortcode preview file's code is removed correctly upon WooFramework upgrade.
  * admin-setup.php - Add extra sanitization to the alternate styles loader.
  * /js/shortcode-generator/preview-shortcode-external.php - Make sure the file is empty (aside from a short error message) and that all vulnerable code is removed successfully.
+ * admin-functions.php - added "Bitter" Google font
 
 2012.04.29 - version 5.3.11 - critical
  * - SECURITY UPDATE - Shortcode preview feature removed in previous version due to potential exploit.
