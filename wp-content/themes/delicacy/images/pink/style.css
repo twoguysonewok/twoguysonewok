@@ -1,0 +1,10 @@
+/* CSS Document */
+
+a {color: #A13E79;}
+a:hover {color: #BC6197;}
+
+#navigation {background: url("ribbon.png") repeat-x left bottom #bc5f97; border-left: 1px solid #d69abe; border-right: 1px solid #d69abe; border-top: 1px solid #d69abe;}
+.ribbon-left {background: url("ribbon-borders.png") no-repeat left top;}
+.ribbon-right {background: url("ribbon-borders.png") no-repeat right top;}
+
+#logo p {color: #A13E79;}
