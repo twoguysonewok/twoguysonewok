@@ -1,0 +1,831 @@
+/*
+	Theme Name: MyRecipe
+	Theme URI: http://themepix.com/wordpress-themes/myrecipe/
+	Description: MyRecipe is a free WordPress theme with featured posts option, post thumbnails and theme admin/options page. Suitable for any niche, especially for cooking sites.
+	Author: ThemePix.com
+	Author URI: http://themepix.com/
+	Version: 3.0
+        Tags: orange, cooking, two-columns, right-sidebar
+*/
+
+/* LAYOUT */
+
+body {
+    background: none repeat scroll 0 0 #F5A60D;
+}
+#wrapper {
+}
+#wrapper-bg {
+}
+#wrapper-bg2 {
+}
+#container {
+}
+#contentwrap {
+    background: none repeat scroll 0 0 #FFFFFF;
+    margin-top: -10px;
+    padding-bottom: 20px;
+}
+.clearfix:after {
+    clear: both;
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+    width: 0;
+}
+a {
+    color: #3366CC;
+    text-decoration: none;
+}
+a:hover {
+    color: #5588AA;
+    text-decoration: none;
+}
+#header {
+    height: 310px;
+    margin-top: 0;
+}
+#header h1 {
+    font-family: Arial,Helvetica,Sans-serif;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 0 !important;
+    margin-top: 0;
+    padding: 4px 14px 3px 10px;
+    text-shadow: 0 1px 0 #555555;
+    text-transform: none;
+}
+#header h1 a, #header h1 a:visited {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+#header h2 {
+    color: #FFFFFF;
+    font-family: Arial,Serif;
+    font-size: 12px;
+    padding-left: 10px;
+}
+.logoimg {
+    margin-left: 10px;
+}
+.feedtwitter {
+    margin-top: 6px;
+    padding-top: 4px;
+    text-align: right;
+}
+.menu-links {
+    height: 48px;
+    margin-left: 8px;
+    margin-top: 15px;
+    width: 723px;
+}
+#navcontainer {
+    display: block;
+    height: 50px;
+    overflow: hidden;
+}
+#navcontainer .current-cat a {
+    background: none repeat scroll 0 0 #FA9401;
+}
+#content {
+    color: #222222;
+    padding-right: 0;
+}
+pre {
+    overflow: auto;
+    width: 470px;
+}
+.post {
+    border-bottom: 1px solid #F6D199;
+    margin-bottom: 20px;
+    min-height: 200px;
+    padding-bottom: 20px;
+}
+.post p {
+    margin-bottom: 10px;
+}
+.title {
+    color: #000000;
+    font-family: Arial,Helvetica,Sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0 0 8px;
+    padding: 0;
+    text-transform: none;
+}
+.title a {
+    color: #000000;
+    text-decoration: none;
+}
+.title a:hover {
+    color: #333333;
+    text-decoration: none;
+}
+.pagetitle {
+    font-family: Arial,Verdana;
+    line-height: 22px;
+    margin-bottom: 20px;
+    text-decoration: underline;
+}
+.postdate {
+    color: #666666;
+    font-family: Arial,Helvetica,Sans-serif;
+    font-size: 12px;
+    margin-bottom: 5px;
+    padding: 0;
+    text-align: left;
+}
+.postmeta {
+    font-family: Arial,Verdana;
+    font-size: 11px;
+    padding: 2px 4px;
+}
+.postdate img, .postmeta img {
+    border: medium none;
+    margin: 0 2px 2px;
+    vertical-align: bottom;
+}
+.entry {
+    font-family: Arial,Verdana;
+    font-size: 14px;
+    line-height: 20px;
+    padding-top: 0;
+    text-align: justify;
+}
+.navigation {
+    margin: 0;
+    padding: 0;
+}
+blockquote {
+    border-left: 3px solid #CADAE7;
+    color: #888888;
+    font-style: italic;
+    overflow: hidden;
+    padding-left: 9px;
+}
+.post img {
+    max-width: 580px;
+}
+img.wp-smiley {
+    border: medium none;
+    margin: 0;
+    max-height: 12px;
+    padding: 0;
+}
+.aligncenter, div.aligncenter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.alignleft {
+    float: left;
+}
+.alignright {
+    float: right;
+}
+.wp-caption {
+    background-color: #F3F3F3;
+    border: 1px solid #DDDDDD;
+    border-radius: 3px 3px 3px 3px;
+    margin: 10px;
+    padding-top: 4px;
+    text-align: center;
+}
+.wp-caption img {
+    border: 0 none;
+    margin: 0;
+    padding: 0;
+}
+.wp-caption p.wp-caption-text {
+    font-size: 11px;
+    line-height: 17px;
+    margin: 0;
+    padding: 0 4px 5px;
+}
+.wp-pagenavi a, .wp-pagenavi a:link, .wp-pagenavi a:active {
+    background: none repeat scroll 0 0 transparent !important;
+    border: 0 none !important;
+    color: #333333 !important;
+    font-size: 15px !important;
+    padding: 4px 8px !important;
+}
+.wp-pagenavi span.pages {
+    background: none repeat scroll 0 0 transparent !important;
+    border: 0 none !important;
+    color: #333333 !important;
+    font-size: 15px !important;
+    padding: 4px 8px !important;
+}
+.wp-pagenavi span.extend {
+    background: none repeat scroll 0 0 transparent !important;
+    border: 0 none !important;
+    color: #232323 !important;
+    font-size: 15px !important;
+    padding: 4px 8px !important;
+}
+.wp-pagenavi span.current {
+    background: none repeat scroll 0 0 #333333 !important;
+    border: 0 none !important;
+    color: #FFFFFF !important;
+    font-size: 15px !important;
+    font-weight: bold;
+    padding: 4px 8px !important;
+}
+.wp-pagenavi a:hover {
+    background: none repeat scroll 0 0 #444444 !important;
+    border: 0 none !important;
+    color: #FFFFFF !important;
+}
+.sidebaradbox {
+    margin-top: 0;
+    padding: 4px;
+    text-align: center;
+}
+.ad125 {
+    margin: 6px;
+}
+.sidebar {
+    color: #333333;
+    font-size: 13px;
+    padding: 0;
+}
+.sidebar a {
+    color: #9F6816;
+    text-decoration: none;
+}
+.sidebar a:hover {
+    color: #333333;
+    text-decoration: underline;
+}
+#search {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    height: 24px;
+    padding: 0;
+    text-align: right;
+}
+#search input {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: #000000;
+    float: left;
+    padding-left: 10px;
+    padding-right: 5px;
+    padding-top: 3px;
+}
+#s {
+    background: none repeat scroll 0 0 transparent;
+    margin: 2px 0 0;
+    padding: 4px;
+    width: 240px;
+}
+#topsearch #search {
+    margin: 7px 6px 0 0;
+}
+#topsearch #s {
+    width: 150px;
+}
+.addthis_toolbox {
+    padding: 0 0 10px;
+    text-align: center;
+}
+.addthis_toolbox .custom_images a {
+    height: 32px;
+    margin: 0 3px;
+    padding: 0;
+    width: 32px;
+}
+.addthis_toolbox .custom_images a:hover img {
+    opacity: 1;
+}
+.addthis_toolbox .custom_images a img {
+    opacity: 0.85;
+}
+.sidebarvideo {
+}
+.sidebar h2 {
+    background: url("images/top-tab.jpg") no-repeat scroll left center transparent;
+    border-bottom: 2px dashed #F6D199;
+    color: #9F6816;
+    font-family: Arial,Helvetica,Sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 14px;
+    margin: 0 -18px 0 -13px;
+    padding: 19px 16px 13px 43px;
+    text-align: left;
+    text-transform: none;
+}
+.sidebar ul {
+    list-style-type: none;
+    margin: 0 0 10px;
+    padding: 0;
+}
+.sidebar ul li {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+}
+.sidebar ul ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.sidebar ul li li, .sidebar ul li ul li {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    border-radius: 0 0 0 0;
+    box-shadow: none;
+    margin: 0 0 2px;
+    padding: 4px 0;
+}
+.sidebar ul li li:hover, .sidebar ul li ul li:hover {
+}
+#wp-calendar th {
+    background: none repeat scroll 0 0 transparent;
+    color: #333333;
+    font-style: normal;
+    text-transform: capitalize;
+}
+#wp-calendar caption {
+    background: none repeat scroll 0 0 transparent;
+    color: #333333;
+    margin: 2px 0;
+    padding: 2px 4px;
+    text-transform: uppercase;
+}
+#wp-calendar td {
+    color: #333333;
+    font: 12px 'Lucida Grande','Lucida Sans Unicode',Verdana,sans-serif;
+    letter-spacing: normal;
+    padding: 2px 0;
+    text-align: center;
+}
+#wp-calendar td:hover, #wp-calendar #today {
+    background: none repeat scroll 0 0 #000000;
+    color: #FFFFFF;
+    text-shadow: 0 1px 0 #000000;
+}
+#wp-calendar td:hover a {
+    color: #414445;
+}
+#wp-calendar {
+    empty-cells: show;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    width: 100%;
+}
+#footer {
+    background: none repeat scroll 0 0 #000000;
+    color: #FFFFFF;
+    font-size: 12px;
+    height: 28px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    padding: 16px 0 0;
+    text-align: center;
+}
+#footer a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+#footer a:hover {
+    color: #EEEEEE;
+    text-decoration: underline;
+}
+#info {
+    background: none repeat scroll 0 0 #9F6816;
+    color: #FFFFFF;
+    font-size: 11px;
+    padding: 5px 0 7px;
+    text-align: center;
+}
+#info a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+#comments h3 {
+    margin-bottom: 10px;
+}
+#commentform input {
+    margin: 5px 5px 1px 0;
+    padding: 2px;
+    width: 170px;
+}
+#commentform {
+    margin: 5px 10px 0 0;
+}
+#commentform textarea {
+    padding: 2px;
+    width: 100%;
+}
+#respond:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+#commentform #submit {
+    float: right;
+    margin: 0 0 5px auto;
+}
+.alt {
+    margin: 0;
+    padding: 10px;
+}
+.commentlist {
+    padding: 0;
+    text-align: justify;
+}
+.commentlist li {
+    list-style: none outside none;
+    margin: 15px 0 10px;
+    padding: 5px 5px 10px 10px;
+}
+.commentlist li ul li {
+    margin-left: 10px;
+    margin-right: -5px;
+}
+.commentlist p {
+    margin: 10px 5px 10px 0;
+}
+.children {
+    padding: 0;
+}
+#commentform p {
+    margin: 5px 0;
+}
+.nocomments {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.commentmetadata {
+    display: block;
+    margin: 0;
+}
+.post_thumbnail {
+    background-color: #FFFFFF;
+    border: 1px solid #EEEEEE;
+    margin: 0 10px 10px 0;
+    padding: 4px;
+}
+.fp-slider {
+    margin: 0 0 15px;
+}
+.fp-slides-container {
+}
+.fp-slides, .fp-thumbnail, .fp-prev-next, .fp-nav {
+    width: 608px;
+}
+.fp-slides, .fp-thumbnail {
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+}
+.fp-title {
+    color: #FFFFFF;
+    font-family: Arial,Helvetica,Sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0 0 2px;
+}
+.fp-title a, .fp-title a:hover {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+.fp-content {
+    background: none repeat scroll 0 0 #111111;
+    bottom: 0;
+    left: 0;
+    opacity: 0.7;
+    overflow: hidden;
+    padding: 10px 15px;
+    position: absolute;
+    right: 0;
+}
+.fp-content p {
+    color: #FFFFFF;
+    line-height: 18px;
+    margin: 0;
+    padding: 0;
+}
+.fp-more, .fp-more:hover {
+    color: #FFFFFF;
+    font-weight: bold;
+}
+.fp-nav {
+    background: none repeat scroll 0 0 #333333;
+    height: 12px;
+    padding: 10px 0;
+    text-align: center;
+}
+.fp-pager a {
+    background-image: url("images/featured-pager.png");
+    background-position: 0 0;
+    cursor: pointer;
+    display: inline-block;
+    float: none;
+    height: 12px;
+    line-height: 1;
+    margin: 0 8px 0 0;
+    opacity: 0.7;
+    overflow: hidden;
+    padding: 0;
+    text-indent: -999px;
+    width: 12px;
+}
+.fp-pager a:hover, .fp-pager a.activeSlide {
+    background-position: 0 -112px;
+    opacity: 1;
+    text-decoration: none;
+}
+.fp-prev-next-wrap {
+    position: relative;
+    z-index: 200;
+}
+.fp-prev-next {
+    bottom: 130px;
+    height: 37px;
+    left: 0;
+    position: absolute;
+    right: 0;
+}
+.fp-prev {
+    background: url("images/featured-prev.png") no-repeat scroll left top transparent;
+    float: left;
+    height: 37px;
+    margin-left: 14px;
+    opacity: 0.6;
+    width: 37px;
+}
+.fp-prev:hover {
+    opacity: 0.8;
+}
+.fp-next {
+    background: url("images/featured-next.png") no-repeat scroll right top transparent;
+    float: right;
+    height: 37px;
+    margin-right: 14px;
+    opacity: 0.6;
+    width: 36px;
+}
+.fp-next:hover {
+    opacity: 0.8;
+}
+.footer_content {
+    float: left;
+    padding: 20px;
+}
+.clear {
+    clear: both;
+}
+.menus, .menus * {
+    line-height: 1;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.menus ul {
+    position: absolute;
+    top: -999em;
+    width: 100%;
+}
+.menus ul li {
+    width: 100%;
+}
+.menus li:hover {
+    visibility: inherit;
+}
+.menus li {
+    float: left;
+    position: relative;
+}
+.menus a {
+    display: block;
+    position: relative;
+}
+.menus li:hover ul, .menus li.sfHover ul {
+    left: 0;
+    top: 100%;
+    z-index: 99;
+}
+.menus li:hover li ul, .menus li.sfHover li ul {
+    top: -999em;
+}
+.menus li li:hover ul, .menus li li.sfHover ul {
+    left: 100%;
+    top: 0;
+}
+.menus li li:hover li ul, .menus li li.sfHover li ul {
+    top: -999em;
+}
+.menus li li li:hover ul, .menus li li li.sfHover ul {
+    left: 100%;
+    top: 0;
+}
+.sf-shadow ul {
+    border-bottom-left-radius: 17px;
+    border-top-right-radius: 17px;
+    padding: 0 8px 9px 0;
+}
+.menus .sf-shadow ul.sf-shadow-off {
+    background: none repeat scroll 0 0 transparent;
+}
+.menu-primary-container {
+    float: left;
+    height: 34px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 400;
+}
+.menu-primary {
+}
+.menu-primary ul {
+    min-width: 160px;
+}
+.menu-primary li a {
+    background: url("images/top-tab.jpg") no-repeat scroll left center transparent;
+    color: #A59473;
+    font-family: Arial,Helvetica,Sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+    padding: 17px 14px 14px 40px;
+    text-decoration: none;
+    text-transform: none;
+}
+.menu-primary li a:hover, .menu-primary li a:active, .menu-primary li a:focus, .menu-primary li:hover > a, .menu-primary li.current-cat > a, .menu-primary li.current_page_item > a, .menu-primary li.current-menu-item > a {
+    color: #333333;
+    outline: 0 none;
+}
+.menu-primary li li a {
+    background: none repeat scroll 0 0 #F4F4F4;
+    border: 0 none;
+    border-radius: 0 0 0 0;
+    color: #6F6D6D;
+    font-weight: normal;
+    margin: 0;
+    padding: 10px 15px;
+    text-shadow: none;
+    text-transform: none;
+}
+.menu-primary li li a:hover, .menu-primary li li a:active, .menu-primary li li a:focus, .menu-primary li li:hover > a, .menu-primary li li.current-cat > a, .menu-primary li li.current_page_item > a, .menu-primary li li.current-menu-item > a {
+    background: none repeat scroll 0 0 #94D3E4;
+    border-bottom: 0 none;
+    color: #333333;
+    outline: 0 none;
+    text-decoration: none;
+}
+.menu-primary a.sf-with-ul {
+    min-width: 1px;
+    padding-right: 20px;
+}
+.menu-primary .sf-sub-indicator {
+    display: block;
+    overflow: hidden;
+    padding: 16px 7px 0 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.menu-primary li li .sf-sub-indicator {
+    padding: 9px 10px 0 0;
+}
+.wrap-menu-primary .sf-shadow ul {
+}
+.menu-secondary-container {
+    background: url("images/menu.png") no-repeat scroll 0 0 transparent;
+    height: 50px;
+    margin: 0 -17px;
+    padding: 0;
+    position: relative;
+    z-index: 300;
+}
+.menu-secondary {
+    margin: 0 auto;
+    width: 978px;
+}
+.menu-secondary ul {
+    min-width: 160px;
+}
+.menu-secondary li a {
+    color: #FFFFFF;
+    font-family: Arial,Helvetica,Sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 15px 12px 14px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.menu-secondary li a:hover, .menu-secondary li a:active, .menu-secondary li a:focus, .menu-secondary li:hover > a, .menu-secondary li.current-cat > a, .menu-secondary li.current_page_item > a, .menu-secondary li.current-menu-item > a {
+    background: none repeat scroll 0 0 #865911;
+    color: #FFFFFF;
+    outline: 0 none;
+}
+.menu-secondary li li a {
+    background: none repeat scroll 0 0 #F4F4F4;
+    color: #3D3F3F;
+    font-weight: normal;
+    margin: 0;
+    padding: 10px 15px;
+    text-transform: none;
+}
+.menu-secondary li li a:hover, .menu-secondary li li a:active, .menu-secondary li li a:focus, .menu-secondary li li:hover > a, .menu-secondary li li.current-cat > a, .menu-secondary li li.current_page_item > a, .menu-secondary li li.current-menu-item > a {
+    background: none repeat scroll 0 0 #865911;
+    color: #FFFFFF;
+    outline: 0 none;
+}
+.menu-secondary a.sf-with-ul {
+    min-width: 1px;
+    padding-right: 26px;
+}
+.menu-secondary .sf-sub-indicator {
+    display: block;
+    overflow: hidden;
+    padding: 14px 12px 0 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.menu-secondary li li .sf-sub-indicator {
+    padding: 9px 13px 0 0;
+}
+.wrap-menu-secondary .sf-shadow ul {
+}
+h2.twittertitle a, h2.twittertitle a:hover {
+    color: #9F6816;
+}
+.tweets-widget ul li:first-child {
+    margin-top: 5px;
+}
+.tweets-widget li.tweets-bird {
+    background: url("images/tweets.png") no-repeat scroll left 9px transparent;
+    padding-left: 24px;
+}
+.tweets-widget ul li {
+    list-style: none outside none;
+    margin: 15px 0 0;
+    padding: 0;
+}
+img.popular-sidebar {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #DDDDDD;
+    margin-right: 10px;
+    margin-top: 5px;
+    padding: 3px;
+}
+.readmore {
+    padding-right: 10px;
+    padding-top: 5px;
+    text-align: right;
+}
+a.readmore {
+    background: url("images/readmore.png") repeat-x scroll 0 0 transparent;
+    border: 1px solid #DDDDDD;
+    margin-left: 510px;
+    padding: 7px 10px;
+}
+img.post_thumnail {
+}
+div.post_thumnail {
+    height: 160px;
+    overflow: hidden;
+}
+.pagination {
+    clear: both;
+    font-size: 14px;
+    line-height: 13px;
+    padding: 0;
+    position: relative;
+}
+.pagination span, .pagination a {
+    background: none repeat scroll 0 0 transparent;
+    color: #333333;
+    display: block;
+    float: left;
+    margin: 2px 2px 2px 0;
+    padding: 6px 9px 5px;
+    text-decoration: none;
+    width: auto;
+}
+.pagination a:hover {
+    background: none repeat scroll 0 0 #3279BB;
+    color: #FFFFFF;
+}
+.pagination .current {
+    background: none repeat scroll 0 0 #9F6816;
+    color: #FFFFFF;
+    padding: 6px 9px 5px;
+}
+h2.widgettitle a {
+    color: #9F6816;
+}
