@@ -829,23 +829,16 @@ div.post_thumnail {
 h2.widgettitle a {
     color: #9F6816;
 }
-/* 3.2 Images */
-/* Center thumbnail images */
-.entry img, img.thumbnail { 
-    display: block !important; 
-    margin-left: auto !important; 
-    margin-right: auto !important; 
-    max-width:98%;
-    height: auto;}
 
-/* Size captions appropriately */
-.entry .wp-caption { 
+/* Custom CSS */
+/* Size Images/Captions appropriately */
+.wp-caption { 
     max-width:98% !important;
     padding: 1px; 
     text-align:center; 
     background:#F8F8F8; 
     border: solid 1px #e6e6e6; }
-.entry .wp-caption img{
+.wp-caption img{
     max-width:98% !important; 
     margin: 0; 
     padding:4px 0; 
