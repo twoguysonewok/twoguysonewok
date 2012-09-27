@@ -195,11 +195,6 @@ img.wp-smiley {
     padding-top: 4px;
     text-align: center; 
 }
-.wp-caption img {
-    border: 0 none;
-    margin: 0;
-    padding: 0;
-}
 .wp-caption img{
     max-width:98% !important; 
     border: 0 none;
