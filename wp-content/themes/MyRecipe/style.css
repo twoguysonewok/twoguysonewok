@@ -186,19 +186,25 @@ img.wp-smiley {
 .alignright {
     float: right;
 }
-.wp-caption {
+.wp-caption { 
+    max-width:98% !important; 
     background-color: #F3F3F3;
     border: 1px solid #DDDDDD;
     border-radius: 3px 3px 3px 3px;
     margin: 10px;
     padding-top: 4px;
-    text-align: center;
+    text-align: center; 
 }
 .wp-caption img {
     border: 0 none;
     margin: 0;
     padding: 0;
 }
+.wp-caption img{
+    max-width:98% !important; 
+    border: 0 none;
+    margin: 0;
+    padding: 0;}
 .wp-caption p.wp-caption-text {
     font-size: 11px;
     line-height: 17px;
@@ -829,19 +835,3 @@ div.post_thumnail {
 h2.widgettitle a {
     color: #9F6816;
 }
-
-/* Custom CSS */
-/* Size Images/Captions appropriately */
-.wp-caption { 
-    max-width:98% !important;
-    padding: 1px; 
-    text-align:center; 
-    background:#F8F8F8; 
-    border: solid 1px #e6e6e6; }
-.wp-caption img{
-    max-width:98% !important; 
-    margin: 0; 
-    padding:4px 0; 
-    background:none; 
-    border:0; 
-    height: auto;}
