@@ -199,7 +199,8 @@ img.wp-smiley {
     max-width:98% !important; 
     border: 0 none;
     margin: 0;
-    padding: 0;}
+    padding: 0;
+    height: auto;}
 .wp-caption p.wp-caption-text {
     font-size: 11px;
     line-height: 17px;
